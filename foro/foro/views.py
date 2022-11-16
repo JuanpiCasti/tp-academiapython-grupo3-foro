@@ -1,3 +1,4 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 def prueba(request):
-    return HttpResponse("Hola")
+    return render(request, "prueba.html")
