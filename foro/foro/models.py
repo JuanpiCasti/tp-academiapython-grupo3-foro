@@ -25,11 +25,14 @@ def all_articulos():
 		connection.commit()
 		return cursor.fetchall()
 
-def all_comentarios():
+def all_comentarios_de_articulo(id_articulo):
 	with connection:
 		with connection.cursor() as cursor:
-			sql='SELECT * FROM comentarios'
-			cursor.execute(sql)
+			try:
+				sql=f'SELECT * FROM comentarios WHERE Articulo_idArticulo={id_articulo}'
+				cursor.execute(sql)
+			except Exception:
+				print("No se encontro comentarios para un articulo con ese ID.")
 		connection.commit()
 		return cursor.fetchall()
 		
