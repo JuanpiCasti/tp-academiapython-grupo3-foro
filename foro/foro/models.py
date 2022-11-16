@@ -22,7 +22,18 @@ def all_articulos():
 		with connection.cursor() as cursor:
 			sql='SELECT * FROM articulo'
 			cursor.execute(sql)
-		connection.commit()
+		return cursor.fetchall()
+
+def all_articulos_categoria(id_categoria):
+		with connection:
+			with connection.cursor() as cursor:
+				try:
+					sql=f"""SELECT * FROM articulo 
+							JOIN articulo_x_categoria as axc ON axc.idArticulo_x_Categoria = articulo.Articulo_idArticulo 
+							JOIN categoria ON axc.Categoria_idCategoria = categoria.idCategoria"""
+					cursor.execute(sql)
+				except Exception:
+					print("No se encontro articulos para una categoria con ese ID.")
 		return cursor.fetchall()
 
 def all_comentarios_de_articulo(id_articulo):
@@ -33,18 +44,4 @@ def all_comentarios_de_articulo(id_articulo):
 				cursor.execute(sql)
 			except Exception:
 				print("No se encontro comentario para un articulo con ese ID.")
-		connection.commit()
-		return cursor.fetchall()
-
-def all_articulos_categoria(id_categoria):
-		with connection:
-		with connection.cursor() as cursor:
-			try:
-				sql=f"""SELECT * FROM articulo 
-						JOIN articulo_x_categoria as axc ON axc.idArticulo_x_Categoria = articulo.Articulo_idArticulo 
-						JOIN categoria ON axc.Categoria_idCategoria = categoria.idCategoria"""
-				cursor.execute(sql)
-			except Exception:
-				print("No se encontro articulos para una categoria con ese ID.")
-		connection.commit()
 		return cursor.fetchall()
