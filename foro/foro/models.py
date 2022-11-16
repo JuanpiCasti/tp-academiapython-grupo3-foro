@@ -28,9 +28,8 @@ def all_articulos_categoria(id_categoria):
 		with connection:
 			with connection.cursor() as cursor:
 				try:
-					sql=f"""SELECT * FROM articulo 
-							JOIN articulo_x_categoria as axc ON axc.idArticulo_x_Categoria = articulo.Articulo_idArticulo 
-							JOIN categoria ON axc.Categoria_idCategoria = categoria.idCategoria"""
+					sql=f"""SSELECT contenido, cat.nombre_categoria FROM articulo 
+							JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo and axc.categoria_idCategoria = {id_categoria}"""
 					cursor.execute(sql)
 				except Exception:
 					print("No se encontro articulos para una categoria con ese ID.")
