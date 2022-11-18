@@ -1,9 +1,9 @@
 import pymysql
 
 connection = pymysql.connect(
-			host = 'localhost:3306',
+			host = 'localhost',
 			user = 'root',
-			password = '12345678',
+			password = '1234',
 			db = 'foro'
 		)
 
@@ -24,16 +24,24 @@ def all_articulos():
 			cursor.execute(sql)
 		return cursor.fetchall()
 
-def all_articulos_categoria(id_categoria):
+def all_articulos_categoria(categoria):
 		with connection:
 			with connection.cursor() as cursor:
 				try:
-					sql=f"""SSELECT contenido, cat.nombre_categoria FROM articulo 
-							JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo and axc.categoria_idCategoria = {id_categoria}"""
+					sql = f"""
+							SELECT idCategoria FROM categoria WHERE nombre_categoria = {categoria}
+						   """
+					cursor.execute(sql)
+					id_categoria = cursor.fetchone[0]
+				except Exception:
+					print("No se encontro una categoria con ese nombre")
+				try:
+					sql=f"""SELECT contenido FROM articulo 
+							INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo and axc.categoria_idCategoria = {id_categoria}"""
 					cursor.execute(sql)
 				except Exception:
 					print("No se encontro articulos para una categoria con ese ID.")
-		return cursor.fetchall()
+			return cursor.fetchall()
 
 def all_comentarios_de_articulo(id_articulo):
 	with connection:

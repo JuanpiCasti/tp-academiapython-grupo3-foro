@@ -77,6 +77,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `foro`.`articulo` (
   `idArticulo` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(100) CHARACTER SET 'utf8mb3' NOT NULL,
   `contenido` VARCHAR(1000) CHARACTER SET 'utf8mb3' NOT NULL,
   `usuario_idUsuario` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`idArticulo`),
