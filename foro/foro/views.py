@@ -4,9 +4,16 @@ from django.shortcuts import render
 
 
 def home(request):
-    articulos = all_articulos()
+    articulos = all_title_articulo()
     return render(request, "home.html", context={"articulos":articulos})
-    
+
+
+def articulos_usuario(request, usuario):
+    articulos = all_articulos_usuario(usuario)
+    return render(request, "home_usuario.html", context={"articulos":articulos})
+
 def articulos_categoria(request, categoria):
-    articulos = all_articulos_categoria()
-    return render(request, "", content={"articulos":articulos})
+    articulos =  all_articulos_categoria(categoria)
+    return render(request, "home.html", context = { "articulos" : articulos } )
+
+
