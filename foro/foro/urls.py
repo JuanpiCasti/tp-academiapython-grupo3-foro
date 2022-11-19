@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', home),
     path('home/<categoria>', articulos_categoria),
-    path('home/<usuario>', articulos_usuario)
+    path('home/<usuario>', articulos_usuario),
+    path('escribir', escribir_articulo),
+    path('subirarticulo/', subir_articulo)
 ]

@@ -26,7 +26,7 @@ CREATE TABLE `tipo_usuario` (
   `idtipo_usuario` int unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`idtipo_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,6 +35,7 @@ CREATE TABLE `tipo_usuario` (
 
 LOCK TABLES `tipo_usuario` WRITE;
 /*!40000 ALTER TABLE `tipo_usuario` DISABLE KEYS */;
+INSERT INTO `tipo_usuario` VALUES (1,'admin'),(2,'escritor'),(3,'comentador');
 /*!40000 ALTER TABLE `tipo_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -47,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-18 15:13:31
+-- Dump completed on 2022-11-18 19:36:18

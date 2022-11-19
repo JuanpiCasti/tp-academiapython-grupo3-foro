@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `comentario`;
 CREATE TABLE `comentario` (
   `idComentario` int unsigned NOT NULL AUTO_INCREMENT,
   `contenido_comentario` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `fecha_comentario` date NOT NULL,
   `articulo_idArticulo` int unsigned NOT NULL,
   PRIMARY KEY (`idComentario`),
   UNIQUE KEY `idComentario_UNIQUE` (`idComentario`),
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-18 15:13:31
+-- Dump completed on 2022-11-18 19:36:18

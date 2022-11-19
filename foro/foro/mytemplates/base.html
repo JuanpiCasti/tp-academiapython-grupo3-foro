@@ -6,10 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Foro</title>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <div class="columns">
+        <div class="column"></div>
+        <div class="column">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+        <div class="column"></div>
+    </div>
+
 </body>
 </html>

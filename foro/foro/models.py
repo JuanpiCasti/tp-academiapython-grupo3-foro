@@ -1,4 +1,5 @@
 import pymysql
+from .utils import today_date
 
 connection = pymysql.connect(
 			host = 'localhost',
@@ -24,10 +25,16 @@ def all_articulos():
 		cursor.execute(sql)
 	return cursor.fetchall()
 
+def all_categorias():
+	with connection.cursor() as cursor:
+		sql='SELECT * FROM categoria'
+		cursor.execute(sql)
+	return cursor.fetchall()
+
 def all_title_articulo():
 
 	with connection.cursor() as cursor:
-		sql = "SELECT title FROM articulo"
+		sql = "SELECT titulo FROM articulo"
 		cursor.execute(sql)
 		titulos = cursor.fetchall()
 	return titulos
@@ -35,22 +42,17 @@ def all_title_articulo():
 def all_articulos_categoria(categoria):
 
 	with connection.cursor() as cursor:
-				try:
-					sql = f"""
-							SELECT idCategoria FROM categoria WHERE nombre_categoria.UPPER() = '{categoria.upper()}'
-						"""
-					cursor.execute(sql)
-					id_categoria = cursor.fetchone()[0]
-				except Exception:
-					print("No se encontro una categoria con ese nombre")
-				try:
-					sql=f"""SELECT titulo FROM articulo 
-							INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo and axc.categoria_idCategoria = {id_categoria}"""
-					cursor.execute(sql)
-				except Exception:
-					print("No se encontro articulos para una categoria con ese ID.")
+		sql = f"""
+				SELECT idCategoria FROM categoria WHERE nombre_categoria = '{categoria}'
+			"""
+		cursor.execute(sql)
+		id_categoria = cursor.fetchone()[0]
+		sql=f"""SELECT titulo FROM articulo 
+				INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo and axc.categoria_idCategoria = {id_categoria}"""
+		cursor.execute(sql)
+		print("No se encontro articulos para una categoria con ese ID.")
 
-				return cursor.fetchall()
+		return cursor.fetchall()
 
 def all_comentarios_de_articulo(id_articulo):
 
@@ -85,3 +87,64 @@ def all_articulos_usuario(request):
 		except Exception:
 			print("Este usuario no publico ningun articulo")
 		return titulo_articulo
+
+
+def get_user_type_id(user_type):
+    with connection.cursor() as cursor:
+        try:
+            sql = f"SELECT idtipo_usuario FROM tipo_usuario WHERE nombre = '{user_type}'"
+
+            cursor.execute(sql)
+            return cursor.fetchone()[0]
+        except: 
+            print("No se econtro un tipo de usuario con ese nombre")
+		
+		
+
+def admin_or_writer_type_ids():
+	return [get_user_type_id('admin'), get_user_type_id('escritor')]
+
+def get_id_categoria(categoria):
+	with connection.cursor() as cursor:
+		query = f"SELECT idCategoria FROM categoria WHERE nombre_categoria = '{categoria}'"
+		cursor.execute(query)
+		return cursor.fetchone()[0]
+
+def identificar_usuario(username, password):
+	with connection.cursor() as cursor:
+		fetch_user = f"SELECT * FROM usuario WHERE nombre = '{username}' AND contrasenia = '{password}'"
+		cursor.execute(fetch_user)
+		user = cursor.fetchone()
+		return user;
+	
+	
+
+
+def post_article(username, password, article_title, article_content, categorias):
+		
+		user = identificar_usuario(username, password)
+
+		try:
+			if user[3] in admin_or_writer_type_ids():
+				with connection.cursor() as cursor:
+					insert_article = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
+							VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
+					cursor.execute(insert_article)
+					connection.commit()
+					article_id = cursor.lastrowid
+					
+					if categorias:
+						insert_article_categories = "INSERT INTO articulo_x_categoria(articulo_idArticulo, categoria_idCategoria) VALUES"
+						for i,categoria in enumerate(categorias):
+							if i == 0:
+								insert_article_categories += f"({article_id}, {categoria})"
+							else:
+								insert_article_categories += f",({article_id}, {categoria})"
+						print(insert_article_categories)
+						cursor.execute(insert_article_categories)
+						connection.commit()
+			else:
+				print("El usuario dado no tiene permisos para subir articulos.")
+		except:
+			print("El usuario no pudo ser identificado.")
+
