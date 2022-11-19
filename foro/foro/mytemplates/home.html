@@ -2,9 +2,12 @@
 
 {% block content %}
 
-{% for articulo in articulos %}
-    <h2> {{articulo.0}}</h2> 
-    <p></p>
+<div class="box">
+    {% for articulo in articulos %}
+        <h2> {{articulo.0}}</h2> 
+        <p></p>
+
+</div>
     
 
 {% endfor %}

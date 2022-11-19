@@ -10,9 +10,11 @@
     <title>Foro</title>
 </head>
 <body>
+    {% include "navbar.html" %}
     <div class="columns">
         <div class="column"></div>
-        <div class="column">
+        <div class="column mt-5">
+            
             {% block content %}
 
             {% endblock %}

@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from .models import *
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
 
 def error(request, msg):
     return render(request, 'error.html', context={"error": msg})
@@ -55,3 +56,6 @@ def subir_articulo(request):
         return error(request, msg)
 
     return render(request, 'home.html')
+
+def redirect_home(request):
+    return redirect('/home')
