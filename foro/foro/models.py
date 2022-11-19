@@ -64,7 +64,7 @@ def all_comentarios_de_articulo(id_articulo):
 			print("No se encontro comentario para un articulo con ese ID.")
 	return cursor.fetchall()
 
-def all_articulos_usuario(request):
+def all_user_article(request):
 
 	with connection.cursor() as cursor:
 		try:
@@ -83,10 +83,10 @@ def all_articulos_usuario(request):
 					idUsuario = {idUsuario}
 					"""
 			cursor.execute(sql)
-			titulo_articulo = cursor.fetchall()
+			article_titles = cursor.fetchall()
 		except Exception:
 			print("Este usuario no publico ningun articulo")
-		return titulo_articulo
+		return article_titles
 
 
 def get_user_type_id(user_type):
@@ -104,53 +104,35 @@ def get_user_type_id(user_type):
 def admin_or_writer_type_ids():
 	return [get_user_type_id('admin'), get_user_type_id('escritor')]
 
-def get_id_categoria(categoria):
+def get_category_id(categorie):
 	with connection.cursor() as cursor:
-		query = f"SELECT idCategoria FROM categoria WHERE nombre_categoria = '{categoria}'"
+		query = f"SELECT idCategoria FROM categoria WHERE nombre_categoria = '{categorie}'"
 		cursor.execute(query)
 		return cursor.fetchone()[0]
 
-def identificar_usuario(username, password):
+def identify_user(username, password):
 	with connection.cursor() as cursor:
 		fetch_user = f"SELECT * FROM usuario WHERE nombre = '{username}' AND contrasenia = '{password}'"
 		cursor.execute(fetch_user)
 		user = cursor.fetchone()
 		return user;
-	
-	
 
+def insert_article_categories(article_id, categories):
+	with connection.cursor() as cursor:
+		insert_article_categories = "INSERT INTO articulo_x_categoria(articulo_idArticulo, categoria_idCategoria) VALUES"
+		for i,categorie in enumerate(categories):
+			if i == 0:
+				insert_article_categories += f"({article_id}, {categorie})"
+			else:
+				insert_article_categories += f",({article_id}, {categorie})"
+		cursor.execute(insert_article_categories)
+		connection.commit()
 
-def post_article(username, password, article_title, article_content, categorias):
-		
-		user = identificar_usuario(username, password)
-
-		if not user:
-			return "No se encontro un usuario con esa combinación de credenciales."
-
-		if not article_title:
-			return "El artículo debe tener un título."
-		
-		if not article_content:
-			return "El artículo debe tener contenido."
-
-		if user[3] in admin_or_writer_type_ids():
-			with connection.cursor() as cursor:
-				insert_article = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
-						VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
-				cursor.execute(insert_article)
-				connection.commit()
-				article_id = cursor.lastrowid
-				
-				if categorias:
-					insert_article_categories = "INSERT INTO articulo_x_categoria(articulo_idArticulo, categoria_idCategoria) VALUES"
-					for i,categoria in enumerate(categorias):
-						if i == 0:
-							insert_article_categories += f"({article_id}, {categoria})"
-						else:
-							insert_article_categories += f",({article_id}, {categoria})"
-					print(insert_article_categories)
-					cursor.execute(insert_article_categories)
-					connection.commit()
-		else:
-			return "El usuario dado no tiene permisos para publicar articulos."
-
+def insert_article(article_title, article_content, user, categories=[]):
+	with connection.cursor() as cursor:
+		query = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
+				VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
+		cursor.execute(query)
+		connection.commit()
+		article_id = cursor.lastrowid
+	insert_article_categories(article_id, categories)
