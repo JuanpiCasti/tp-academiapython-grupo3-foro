@@ -91,13 +91,9 @@ def all_user_article(request):
 
 def get_user_type_id(user_type):
     with connection.cursor() as cursor:
-        try:
             sql = f"SELECT idtipo_usuario FROM tipo_usuario WHERE nombre = '{user_type}'"
-
             cursor.execute(sql)
             return cursor.fetchone()[0]
-        except: 
-            print("No se econtro un tipo de usuario con ese nombre")
 		
 		
 
@@ -117,22 +113,23 @@ def identify_user(username, password):
 		user = cursor.fetchone()
 		return user;
 
-def insert_article_categories(article_id, categories):
+def insert_query(query):
 	with connection.cursor() as cursor:
-		insert_article_categories = "INSERT INTO articulo_x_categoria(articulo_idArticulo, categoria_idCategoria) VALUES"
-		for i,categorie in enumerate(categories):
-			if i == 0:
-				insert_article_categories += f"({article_id}, {categorie})"
-			else:
-				insert_article_categories += f",({article_id}, {categorie})"
-		cursor.execute(insert_article_categories)
-		connection.commit()
-
-def insert_article(article_title, article_content, user, categories=[]):
-	with connection.cursor() as cursor:
-		query = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
-				VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
 		cursor.execute(query)
 		connection.commit()
-		article_id = cursor.lastrowid
+		return cursor.lastrowid
+
+def insert_article_categories(article_id, categories):
+	insert_article_categories = "INSERT INTO articulo_x_categoria(articulo_idArticulo, categoria_idCategoria) VALUES"
+	for i,categorie in enumerate(categories):
+		if i == 0:
+			insert_article_categories += f"({article_id}, {categorie})"
+		else:
+			insert_article_categories += f",({article_id}, {categorie})"
+	insert_query(insert_article_categories)
+
+def insert_article(article_title, article_content, user, categories=[]):
+	query = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
+			VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
+	article_id = insert_query(query)
 	insert_article_categories(article_id, categories)
