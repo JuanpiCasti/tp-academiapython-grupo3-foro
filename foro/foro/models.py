@@ -17,7 +17,7 @@ connection = pymysql.connect(
     #     connection.commit() # Aplica los cambios si aplica
     #     return cursor.fetchall() # Devuelve todo lo encontrado si aplica
 
-#Metodos
+
 def all_articulos():
 
 	with connection.cursor() as cursor:
@@ -100,9 +100,9 @@ def get_user_type_id(user_type):
 def admin_or_writer_type_ids():
 	return [get_user_type_id('admin'), get_user_type_id('escritor')]
 
-def get_category_id(categorie):
+def get_category_id(category):
 	with connection.cursor() as cursor:
-		query = f"SELECT idCategoria FROM categoria WHERE nombre_categoria = '{categorie}'"
+		query = f"SELECT idCategoria FROM categoria WHERE nombre_categoria = '{category}'"
 		cursor.execute(query)
 		return cursor.fetchone()[0]
 
@@ -121,11 +121,11 @@ def insert_query(query):
 
 def insert_article_categories(article_id, categories):
 	insert_article_categories = "INSERT INTO articulo_x_categoria(articulo_idArticulo, categoria_idCategoria) VALUES"
-	for i,categorie in enumerate(categories):
+	for i,category in enumerate(categories):
 		if i == 0:
-			insert_article_categories += f"({article_id}, {categorie})"
+			insert_article_categories += f"({article_id}, {category})"
 		else:
-			insert_article_categories += f",({article_id}, {categorie})"
+			insert_article_categories += f",({article_id}, {category})"
 	insert_query(insert_article_categories)
 
 def insert_article(article_title, article_content, user, categories=[]):
