@@ -124,27 +124,33 @@ def post_article(username, password, article_title, article_content, categorias)
 		
 		user = identificar_usuario(username, password)
 
-		try:
-			if user[3] in admin_or_writer_type_ids():
-				with connection.cursor() as cursor:
-					insert_article = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
-							VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
-					cursor.execute(insert_article)
+		if not user:
+			return "No se encontro un usuario con esa combinación de credenciales."
+
+		if not article_title:
+			return "El artículo debe tener un título."
+		
+		if not article_content:
+			return "El artículo debe tener contenido."
+
+		if user[3] in admin_or_writer_type_ids():
+			with connection.cursor() as cursor:
+				insert_article = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
+						VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
+				cursor.execute(insert_article)
+				connection.commit()
+				article_id = cursor.lastrowid
+				
+				if categorias:
+					insert_article_categories = "INSERT INTO articulo_x_categoria(articulo_idArticulo, categoria_idCategoria) VALUES"
+					for i,categoria in enumerate(categorias):
+						if i == 0:
+							insert_article_categories += f"({article_id}, {categoria})"
+						else:
+							insert_article_categories += f",({article_id}, {categoria})"
+					print(insert_article_categories)
+					cursor.execute(insert_article_categories)
 					connection.commit()
-					article_id = cursor.lastrowid
-					
-					if categorias:
-						insert_article_categories = "INSERT INTO articulo_x_categoria(articulo_idArticulo, categoria_idCategoria) VALUES"
-						for i,categoria in enumerate(categorias):
-							if i == 0:
-								insert_article_categories += f"({article_id}, {categoria})"
-							else:
-								insert_article_categories += f",({article_id}, {categoria})"
-						print(insert_article_categories)
-						cursor.execute(insert_article_categories)
-						connection.commit()
-			else:
-				print("El usuario dado no tiene permisos para subir articulos.")
-		except:
-			print("El usuario no pudo ser identificado.")
+		else:
+			return "El usuario dado no tiene permisos para publicar articulos."
 

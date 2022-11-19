@@ -28,5 +28,8 @@ def subir_articulo(request):
     article_title = request.POST["article_title"]
     article_content = request.POST["article_content"]
     categories = request.POST.getlist("categories")
-    post_article(username, password, article_title, article_content, categories)
-    return render(request, 'home.html')
+    error = post_article(username, password, article_title, article_content, categories)
+    if not error:
+        return render(request, 'home.html')
+    else:
+        return render(request, "error.html", context={'error': error})
