@@ -144,18 +144,15 @@ def insert_article(article_title, article_content, user, categories=[]):
     insert_article_categories(article_id, categories)
 
 
-def articulo(article_title):
+def get_article(article_id):
     with connection.cursor() as cursor:
-        query = f""" SELECT * FROM articulo WHERE titulo = {article_title} """
+        query = f""" SELECT * FROM articulo WHERE idArticulo = {article_id} """
         cursor.execute(query)
-        return cursor.fetchall()
+        return cursor.fetchone()
 
 
 def comentarios_articulo(article_id):
     with connection.cursor() as cursor:
-        try:
-            sql = f'SELECT * FROM comentario WHERE Articulo_idArticulo={article_id}'
-            cursor.execute(sql)
-        except Exception:
-            print("No hay comentarios para este articulo.")
-    return cursor.fetchall()
+        sql = f'SELECT * FROM comentario WHERE Articulo_idArticulo={article_id}'
+        cursor.execute(sql)
+        return cursor.fetchall()
