@@ -1,0 +1,39 @@
+<body>
+    <div class="body"></div>
+    <form method="POST" action="login" onSubmit={onSubmit}>
+        <div class="grad"></div>
+        <div class="header">
+            <div>
+                Calculador
+                <span>
+                    <strong> Huella Ecologica</strong>
+                </span>
+            </div>
+        </div>
+        <br />
+        <div class="login">
+            <input
+                id="username"
+                type="text"
+                placeholder="Username"
+                name="username"
+                autocomplete="off"
+                onChange={handleChangeNombre}
+            />
+            <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                name="password"
+                autocomplete="off"
+                onChange={handleChangePassword}
+            />
+            <input type="submit" value="Login" />
+            <br />
+            <p class="hrefRegister">Si no estas registrado.</p>
+            <Link to="/register">
+                <strong> Registrate! </strong>
+            </Link>
+        </div>
+    </form>
+</body>
