@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="box">
+        <h1 class="title is-1">{{articulo.1}}</h1>
+        <span class=""><a href="/home/user/{{author}}">{{author}}</a> - {{articulo.3}}</span>
+        <div class="mt-5">
+            <p>
+                {{articulo.2}}
+            </p>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2 class="subtitle is-2">Comentarios</h2>
+        
+        <div>
+
+            {% if not comentarios %}
+                <p>Todavía no hay ningún comentario</p>
+            {% endif %}
+
+            {% for comentario in comentarios %}
+                <hr/>
+                <p>{{comentario.1}}</p>
+                <span class="is-size-7">{{comentario.2}}</span>
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+
+{% endblock %}

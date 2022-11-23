@@ -153,6 +153,13 @@ def get_article(article_id):
 
 def comentarios_articulo(article_id):
     with connection.cursor() as cursor:
-        sql = f'SELECT * FROM comentario WHERE Articulo_idArticulo={article_id}'
+        sql = f'SELECT * FROM comentario WHERE articulo_idArticulo={article_id}'
         cursor.execute(sql)
         return cursor.fetchall()
+
+
+def get_user(user_id):
+    with connection.cursor() as cursor:
+        query = f""" SELECT * FROM usuario WHERE idUsuario = {user_id} """
+        cursor.execute(query)
+        return cursor.fetchone()

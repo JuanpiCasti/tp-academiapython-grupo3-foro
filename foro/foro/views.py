@@ -69,6 +69,6 @@ def redirect_home(request):
 def articulo(request, article_id):
     art = get_article(article_id)
     comentarios = comentarios_articulo(article_id)
-    print(art)
-    print(comentarios)
-    # return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios})
+    author_id = art[4]
+    author = get_user(author_id)[1]
+    return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios, "author": author})
