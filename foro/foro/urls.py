@@ -25,4 +25,5 @@ urlpatterns = [
     path('home/<usuario>', articulos_usuario),
     path('escribir', escribir_articulo),
     path('subirarticulo/', subir_articulo),
+    
 ]
