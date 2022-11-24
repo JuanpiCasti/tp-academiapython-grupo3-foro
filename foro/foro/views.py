@@ -3,6 +3,7 @@ from .models import *
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
+from django.contrib.auth.forms import UserCreationForm
 
 
 def error(request, msg):
@@ -72,3 +73,29 @@ def articulo(request, article_id):
     author_id = art[4]
     author = get_user(author_id)[1]
     return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios, "author": author})
+
+def hehe(request):
+    return render(request, "register.html")
+
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.isValid():
+            form.save()
+            username=form.cleaned_data['username']
+            password = form.cleaned_data['first_password']
+            user = authenticate(username = username,password = password)
+            login(request,user)
+            messages.success(request,("El Registro se completo de forma Exitosa"))
+            return redirect('home')
+
+    else:
+        form = UserCreationForm()
+    return render( request, 'register.html',{
+        'form':form,
+    })
+
+
+
+

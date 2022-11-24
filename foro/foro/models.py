@@ -163,3 +163,20 @@ def get_user(user_id):
         query = f""" SELECT * FROM usuario WHERE idUsuario = {user_id} """
         cursor.execute(query)
         return cursor.fetchone()
+
+def get_user_By_username(username):
+     with connection.cursor() as cursor:
+        fetch_user = f"SELECT * FROM usuario WHERE nombre = '{username}' "
+        cursor.execute(fetch_user)
+        user = cursor.fetchone()
+        return user  
+
+def register(username,name,rol):
+    if ( get_user_By_username(username) == None ):
+        print("error") # Tiramos cartelito de error 
+    else:
+        insert_query( "INSERT INTO usuario(nombre, contrasenia, tipo_usuario) VALUES ( '{name},''{username},''{rol}' )" ) 
+         
+
+
+     
