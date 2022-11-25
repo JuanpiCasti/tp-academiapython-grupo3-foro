@@ -23,8 +23,10 @@ urlpatterns = [
     path('home/', home),
     path('home/cat/<categoria>', articulos_categoria),
     path('home/user/<usuario>', articulos_usuario),
-    path('escribir', escribir_articulo),
+    path('escribir/', escribir_articulo),
     path('subirarticulo/', subir_articulo),
     path('mostrararticulo/<int:article_id>', articulo),
-    path('registerUser/', hehe)
+    path('registerUser/', register),
+    path('registerUser/register/',registerUser)
+
 ]

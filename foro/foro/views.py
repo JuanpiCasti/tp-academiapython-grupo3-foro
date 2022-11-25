@@ -74,28 +74,49 @@ def articulo(request, article_id):
     author = get_user(author_id)[1]
     return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios, "author": author})
 
-def hehe(request):
-    return render(request, "register.html")
+
+def convertRol(request):
+    
+    match request.POST["rol"]:
+        case "escritor":
+            return 2
+        case "comentador":
+            return 3
+        case _:
+            msg = "Hubo un problema con el rol seleccionado"
+            return error(request,msg)
 
 
-def register_user(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.isValid():
-            form.save()
-            username=form.cleaned_data['username']
-            password = form.cleaned_data['first_password']
-            user = authenticate(username = username,password = password)
-            login(request,user)
-            messages.success(request,("El Registro se completo de forma Exitosa"))
-            return redirect('home')
+def register(request):
+    return render(request, 'register.html')
 
+
+def registerUser(request):
+    print("LLEGUE ACAA1")
+    username = request.POST["username"]
+    password_one = request.POST["password1"]
+    password_two = request.POST["password2"]
+    email = request.POST["email"]
+
+    rol = convertRol(request)
+
+    if password_one != password_two:
+        msg = "Las contraseñas son distintas, por favor vuelva a escribirlas."
+        return error(request, msg)
+
+    user = identify_user(username, password_one)
+
+    if user:
+        msg = "Ya existe esa cuenta, no es necesario registrarse"
+        return error(request, msg)
     else:
-        form = UserCreationForm()
-    return render( request, 'register.html',{
-        'form':form,
-    })
-
+        saveUser(username,password_one,rol)
+        redirect_home  
+        
+    
+    
+    
+   
 
 
 
