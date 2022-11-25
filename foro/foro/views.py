@@ -80,3 +80,31 @@ def recibiendoGet(request):
     categoria = request.GET.getlist("categoria")
     articulos =  all_articulos_categorias(categoria)
     return render(request, "home.html", {"articulos": articulos})
+    
+@csrf_exempt
+def subir_comentario(request):
+    
+    article_id = request.POST["article_id"]
+    username = request.POST["username"]
+    password = request.POST["password"]
+    comment_content = request.POST["comment_content"]
+    print (article_id)
+    print (username)
+    print(password)
+    print(comment_content)
+    user = identify_user(username, password)
+
+    if not user:
+        msg = "No se encontro un usuario con esa combinación de credenciales."
+        return error(request, msg)
+
+    
+    if not comment_content:
+        msg = "El comentario debe tener contenido."
+        return error(request, msg)
+
+    
+    insert_comment(comment_content,article_id)
+   
+
+    return redirect(f'/mostrararticulo/{article_id}')

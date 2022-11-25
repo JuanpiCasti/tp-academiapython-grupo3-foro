@@ -4,7 +4,7 @@ from .utils import today_date
 connection = pymysql.connect(
     host='localhost',
     user='root',
-    password='1234',
+    password='123456',
     db='foro'
 )
 
@@ -185,3 +185,11 @@ def all_articulos_categorias(categorias):
 			cursor.execute(sql)
 			articulos.append(cursor.fetchone())
 		return articulos
+        
+def insert_comment(comment_content, article_id):
+    with connection.cursor() as cursor:
+        query = f"""INSERT INTO comentario(contenido_comentario, fecha_comentario, articulo_idArticulo)
+                VALUES ('{comment_content}', '{today_date()}', {article_id})"""
+        cursor.execute(query)
+        connection.commit()
+    

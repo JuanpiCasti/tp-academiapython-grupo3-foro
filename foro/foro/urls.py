@@ -28,4 +28,5 @@ urlpatterns = [
     path('mostrararticulo/<int:article_id>', articulo),
     path('filtro/', articulos_categorias),
     path('recibiendoGet/', recibiendoGet),
+    path('mostrararticulo/subircomentario/', subir_comentario),
 ]
