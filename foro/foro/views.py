@@ -72,3 +72,11 @@ def articulo(request, article_id):
     author_id = art[4]
     author = get_user(author_id)[1]
     return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios, "author": author})
+
+def articulos_categorias(request):
+    return render(request, "filtro.html")
+
+def recibiendoGet(request):
+    categoria = request.GET.getlist("categoria")
+    articulos =  all_articulos_categorias(categoria)
+    return render(request, "home.html", {"articulos": articulos})
