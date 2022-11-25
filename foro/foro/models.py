@@ -4,7 +4,7 @@ from .utils import today_date
 connection = pymysql.connect(
     host='localhost',
     user='root',
-    password='1234',
+    password='123456',
     db='foro'
 )
 
@@ -163,3 +163,8 @@ def get_user(user_id):
         query = f""" SELECT * FROM usuario WHERE idUsuario = {user_id} """
         cursor.execute(query)
         return cursor.fetchone()
+
+def insert_comment(comment_content, article_id):
+    query = f"""INSERT INTO comentario(contenido_comentario, fecha_comentario, articulo_idArticulo)
+			VALUES ('{comment_content}', '{today_date()}', {article_id})"""
+    

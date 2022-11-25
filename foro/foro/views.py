@@ -72,3 +72,29 @@ def articulo(request, article_id):
     author_id = art[4]
     author = get_user(author_id)[1]
     return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios, "author": author})
+
+@csrf_exempt
+def subir_comentario(request,article_id):
+    art = get_article(article_id)
+    username = request.POST["username"]
+    password = request.POST["password"]
+    comment_content = request.POST["comment_content"]
+
+    user = identify_user(username, password)
+
+    if not user:
+        msg = "No se encontro un usuario con esa combinación de credenciales."
+        return error(request, msg)
+
+    
+    if not comment_content:
+        msg = "El comentario debe tener contenido."
+        return error(request, msg)
+
+    if user[3] in admin_or_writer_type_ids():
+        insert_comment(comment_content,article_id)
+    else:
+        msg = "El usuario dado no tiene permisos para publicar articulos."
+        return error(request, msg)
+
+    return render(request, 'home.html')
