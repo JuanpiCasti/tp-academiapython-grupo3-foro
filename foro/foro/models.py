@@ -165,6 +165,9 @@ def get_user(user_id):
         return cursor.fetchone()
 
 def insert_comment(comment_content, article_id):
-    query = f"""INSERT INTO comentario(contenido_comentario, fecha_comentario, articulo_idArticulo)
-			VALUES ('{comment_content}', '{today_date()}', {article_id})"""
+    with connection.cursor() as cursor:
+        query = f"""INSERT INTO comentario(contenido_comentario, fecha_comentario, articulo_idArticulo)
+                VALUES ('{comment_content}', '{today_date()}', {article_id})"""
+        cursor.execute(query)
+        connection.commit()
     

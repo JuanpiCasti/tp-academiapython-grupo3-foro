@@ -18,8 +18,8 @@
         <h1 class="subtitle is-1">Escriba su comentario</h1> 
     
 
-    <form action="/subircomentario/" method="post" class="box">
-    
+    <form action="subircomentario/" method="post" class="box">
+        <input name="article_id" value="{{articulo.0}}" type="hidden">
         <div class="field">
             <label class="label">Nombre de usuario</label>
             <div class="control">
