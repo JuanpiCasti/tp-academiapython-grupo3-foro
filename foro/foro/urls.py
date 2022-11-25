@@ -26,4 +26,5 @@ urlpatterns = [
     path('escribir/', escribir_articulo),
     path('subirarticulo/', subir_articulo),
     path('mostrararticulo/<int:article_id>', articulo),
+    path('mostrararticulo/subircomentario/', subir_comentario),
 ]
