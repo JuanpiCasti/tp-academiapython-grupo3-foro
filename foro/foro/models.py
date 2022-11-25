@@ -4,7 +4,7 @@ from .utils import today_date
 connection = pymysql.connect(
     host='localhost',
     user='root',
-    password='123456',
+    password='1234',
     db='foro'
 )
 
@@ -153,7 +153,7 @@ def get_article(article_id):
 
 def comentarios_articulo(article_id):
     with connection.cursor() as cursor:
-        sql = f'SELECT * FROM comentario WHERE articulo_idArticulo={article_id}'
+        sql = f"SELECT * FROM comentario WHERE articulo_idArticulo={article_id} ORDER BY fecha_comentario DESC"
         cursor.execute(sql)
         return cursor.fetchall()
 
