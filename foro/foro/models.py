@@ -167,23 +167,26 @@ def get_user(user_id):
 def all_articulos_categorias(categorias):
 
 	with connection.cursor() as cursor:
-		id_categorias = []
-		articulos = []
+		articulosSinFiltrar = []
+		aux = []
 		for cat in categorias:
+			print(cat)
 			sql = f"""
-					SELECT articulo_idArticulo FROM articulo_x_categoria
-					INNER JOIN categoria as cat ON articulo_x_categoria.categoria_idCategoria = cat.idCategoria
+					SELECT titulo FROM articulo
+					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo
+					INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
 					WHERE cat.nombre_categoria =  '{cat}'
 				"""
 			cursor.execute(sql)
-			id_categorias.append(cursor.fetchone()[0])
-		visited = set()
-		id_articulo = {x for x in id_categorias if x in visited or (visited.add(x) or False)}
-		for id in id_articulo:
-			sql=f"""SELECT titulo FROM articulo 
-					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo and axc.categoria_idCategoria = {id}"""
-			cursor.execute(sql)
-			articulos.append(cursor.fetchone())
+			articulosSinFiltrar.append(cursor.fetchall())
+			print(articulosSinFiltrar)
+		aux = articulosSinFiltrar
+		articulosSinFiltrar = []
+		for elem in aux:
+			for x in elem:
+				articulosSinFiltrar.append(x[0])
+		print(articulosSinFiltrar)
+		articulos = {x for x in articulosSinFiltrar if articulosSinFiltrar.count(x) == len(categorias)}
 		return articulos
         
 def insert_comment(comment_content, article_id):
