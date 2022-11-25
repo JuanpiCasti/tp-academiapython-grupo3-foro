@@ -4,7 +4,7 @@ from .utils import today_date
 connection = pymysql.connect(
 	host='localhost',
 	user='root',
-	password='Gaby2612',
+	password='1234',
 	db='foro'
 )
 
