@@ -10,7 +10,7 @@ def error(request, msg):
 
 
 def home(request):
-    articulos = all_title_articulo()
+    articulos = all_articles()
     return render(request, "home.html", context={"articulos": articulos})
 
 

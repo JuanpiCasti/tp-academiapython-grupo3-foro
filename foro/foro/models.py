@@ -18,7 +18,7 @@ connection = pymysql.connect(
 #     return cursor.fetchall() # Devuelve todo lo encontrado si aplica
 
 
-def all_articulos():
+def all_articles():
 
     with connection.cursor() as cursor:
         sql = 'SELECT * FROM articulo'
@@ -50,7 +50,7 @@ def all_articulos_categoria(categoria):
 			"""
         cursor.execute(sql)
         id_categoria = cursor.fetchone()[0]
-        sql = f"""SELECT titulo FROM articulo 
+        sql = f"""SELECT * FROM articulo 
 				INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo and axc.categoria_idCategoria = {id_categoria}"""
         cursor.execute(sql)
         print("No se encontro articulos para una categoria con ese ID.")
