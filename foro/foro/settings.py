@@ -55,7 +55,7 @@ ROOT_URLCONF = 'foro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["D:/OneDrive - UTN.BA/academia-python/tp/tp-academiapython-grupo3-foro/foro/foro/mytemplates"],
+        'DIRS': ["foro/mytemplates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
