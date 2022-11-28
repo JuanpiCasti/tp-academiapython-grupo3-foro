@@ -21,7 +21,7 @@ connection = pymysql.connect(
 def all_articles():
 
     with connection.cursor() as cursor:
-        sql = 'SELECT * FROM articulo'
+        sql = 'SELECT * FROM articulo ORDER BY fecha_articulo DESC'
         cursor.execute(sql)
     return cursor.fetchall()
 
@@ -51,7 +51,8 @@ def all_articulos_categoria(categoria):
         cursor.execute(sql)
         id_categoria = cursor.fetchone()[0]
         sql = f"""SELECT * FROM articulo 
-				INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo and axc.categoria_idCategoria = {id_categoria}"""
+				INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo 
+                and axc.categoria_idCategoria = {id_categoria} ORDER BY fecha_articulo DESC"""
         cursor.execute(sql)
         print("No se encontro articulos para una categoria con ese ID.")
 
@@ -69,29 +70,19 @@ def all_comentarios_de_articulo(id_articulo):
     return cursor.fetchall()
 
 
-def all_user_article(request):
+def all_user_article(user):
 
     with connection.cursor() as cursor:
-        try:
-            sql = f"""
-						SELECT idUsuario FROM usuario 
-						WHERE  nombre.UPPER() = {request.GET["usuario"]}.UPPER()
-					"""
-            cursor.execute(sql)
-            idUsuario = cursor.fetchone[0]
-        except Exception:
-            print("Nombre de usuario invalido")
-
-        try:
-            sql = f"""
-					SELECT titulo FROM articulo WHERE
-					idUsuario = {idUsuario}
-					"""
-            cursor.execute(sql)
-            article_titles = cursor.fetchall()
-        except Exception:
-            print("Este usuario no publico ningun articulo")
-        return article_titles
+            user_query = f"""
+						SELECT idUsuario FROM usuario WHERE nombre = '{user}'
+					    """
+            cursor.execute(user_query)
+            idUsuario = cursor.fetchone()[0]
+            articles_query = f"""SELECT * FROM articulo WHERE usuario_idUsuario = {idUsuario}"""
+            cursor.execute(articles_query)
+            articles = cursor.fetchall()
+            return articles
+            
 
 
 def get_user_type_id(user_type):

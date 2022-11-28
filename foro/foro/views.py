@@ -15,8 +15,11 @@ def home(request):
 
 
 def articulos_usuario(request, usuario):
-    articulos = all_user_article(usuario)
-    return render(request, "home_usuario.html", context={"articulos": articulos})
+    try:
+        articulos = all_user_article(usuario)
+    except:
+        return render(request, "error.html", context={"error": "El usuario buscado no existe."})
+    return render(request, "home.html", context={"articulos": articulos})
 
 
 def articulos_categoria(request, categoria):
