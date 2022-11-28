@@ -156,7 +156,7 @@ def all_articulos_categorias(categorias):
 		articulosSinFiltrar = []
 		for cat in categorias:
 			sql = f"""
-					SELECT * FROM articulo
+					SELECT idArticulo, titulo, contenido, fecha_articulo, usuario_idUsuario FROM articulo
 					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo
 					INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
 					WHERE cat.nombre_categoria =  '{cat}'
