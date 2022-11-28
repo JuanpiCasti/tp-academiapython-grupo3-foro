@@ -82,7 +82,7 @@ def articulos_categorias(request):
 def recibiendoGet(request):
     categoria = request.GET.getlist("categoria")
     articulos =  all_articulos_categorias(categoria)
-    return render(request, "home.html", {"articulos": articulos})
+    return render(request, "filtro.html", context = {"articulos": articulos})
     
 @csrf_exempt
 def subir_comentario(request):
