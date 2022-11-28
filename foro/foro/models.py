@@ -127,6 +127,7 @@ def insert_article(article_title, article_content, user, categories=[]):
 			VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
 	article_id = insert_query(query)
 	insert_article_categories(article_id, categories)
+	return article_id
 
 
 def get_article(article_id):
@@ -155,7 +156,7 @@ def all_articulos_categorias(categorias):
 		articulosSinFiltrar = []
 		for cat in categorias:
 			sql = f"""
-					SELECT idArticulo, titulo, contenido, usuario_idUsuario FROM articulo
+					SELECT * FROM articulo
 					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo
 					INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
 					WHERE cat.nombre_categoria =  '{cat}'

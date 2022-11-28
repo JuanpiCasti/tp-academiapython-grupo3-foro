@@ -3,7 +3,7 @@ from .models import *
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
-
+from .reconocimiento import reconocer_persona
 
 def error(request, msg):
     return render(request, 'error.html', context={"error": msg})
@@ -40,7 +40,7 @@ def subir_articulo(request):
     article_title = request.POST["article_title"]
     article_content = request.POST["article_content"]
     categories = request.POST.getlist("categories")
-
+    reconocer_persona()
     user = identify_user(username, password)
 
     if not user:
@@ -56,13 +56,13 @@ def subir_articulo(request):
         return error(request, msg)
 
     if user[3] in admin_or_writer_type_ids():
-        insert_article(article_title, article_content,
+        article_id = insert_article(article_title, article_content,
                        user, categories=categories)
     else:
         msg = "El usuario dado no tiene permisos para publicar articulos."
         return error(request, msg)
 
-    return render(request, 'home.html')
+    return redirect(f'/mostrararticulo/{article_id}')
 
 
 def redirect_home(request):
@@ -82,7 +82,7 @@ def articulos_categorias(request):
 def recibiendoGet(request):
     categoria = request.GET.getlist("categoria")
     articulos =  all_articulos_categorias(categoria)
-    return render(request, "filtro.html", context = {"articulos": articulos})
+    return render(request, "home.html", context = {"articulos": articulos})
     
 @csrf_exempt
 def subir_comentario(request):
@@ -95,7 +95,10 @@ def subir_comentario(request):
     print (username)
     print(password)
     print(comment_content)
+    reconocer_persona()
     user = identify_user(username, password)
+
+    
 
     if not user:
         msg = "No se encontro un usuario con esa combinación de credenciales."
@@ -106,8 +109,8 @@ def subir_comentario(request):
         msg = "El comentario debe tener contenido."
         return error(request, msg)
 
-    
+
     insert_comment(comment_content,article_id)
    
-
+    
     return redirect(f'/mostrararticulo/{article_id}')
