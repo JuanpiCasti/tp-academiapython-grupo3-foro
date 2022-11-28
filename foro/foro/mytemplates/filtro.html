@@ -6,9 +6,14 @@
 <h1 class="title is-1">Filtro avanzado</h1>
 <div>
     <form action="/recibiendoGet/" method="get">
-        <input type="checkbox" name="categoria" value="Entretenimiento">Entretenimiento
-        <input type="checkbox" name="categoria" value="Filosofia">Filosofia
-        <input type="checkbox" name="categoria" value="Historia">Historia
+            {% for cat in categorias %}
+        
+            <label class="checkbox">
+                <input type="checkbox" id={{cat.1}} name="categories" value="{{cat.1}}">
+                {{cat.1}}
+            </label>
+
+        {% endfor %}
         <input type="submit" name="Enviar">
     </form>
 </div>
@@ -16,8 +21,8 @@
 <div class="box">
     {% for articulo in articulos %}
     <div>
-        <h2 class="subtitle is-3 is-underlined mb-1 mt-1"><a href="/mostrararticulo/{{articulo.0}}">{{articulo.1}}</a></h2> 
-        <span><a href="#"></a> - {{articulo.3}}</span>
+        <h2 class="subtitle is-3 is-underlined mb-1 mt-1"><a href="/mostrararticulo/{{articulo.1}}">{{articulo.2}}</a></h2> 
+        <span><a href="/home/user/{{articulo.0}}">{{articulo.0}}</a> - {{articulo.4}}</span>
         <hr>
     </div>
 

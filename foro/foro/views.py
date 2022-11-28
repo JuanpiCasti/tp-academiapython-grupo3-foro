@@ -77,12 +77,13 @@ def articulo(request, article_id):
     return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios, "author": author})
 
 def articulos_categorias(request):
-    return render(request, "filtro.html")
+    context = {'categorias': all_categorias()}
+    return render(request, "filtro.html", context = context)
 
 def recibiendoGet(request):
-    categoria = request.GET.getlist("categoria")
+    categoria = request.GET.getlist("categories")
     articulos =  all_articulos_categorias(categoria)
-    return render(request, "home.html", context = {"articulos": articulos})
+    return render(request, "filtro.html", context = {"articulos": articulos, "categorias": all_categorias()})
     
 @csrf_exempt
 def subir_comentario(request):

@@ -4,7 +4,7 @@ from .utils import today_date
 connection = pymysql.connect(
 	host='localhost',
 	user='root',
-	password='1234',
+	password='Gaby2612',
 	db='foro'
 )
 
@@ -156,8 +156,9 @@ def all_articulos_categorias(categorias):
 		articulosSinFiltrar = []
 		for cat in categorias:
 			sql = f"""
-					SELECT idArticulo, titulo, contenido, fecha_articulo, usuario_idUsuario FROM articulo
-					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo
+					SELECT nombre, idArticulo, titulo, contenido, fecha_articulo FROM usuario
+					INNER JOIN articulo as art ON art.usuario_idUsuario = usuario.idUsuario
+					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = art.idArticulo
 					INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
 					WHERE cat.nombre_categoria =  '{cat}'
 				"""
@@ -167,9 +168,7 @@ def all_articulos_categorias(categorias):
 			for elem in aux:
 				for x in elem:
 					articulosSinFiltrar.append(x)
-		print(articulosSinFiltrar)
 		articulos = {x for x in articulosSinFiltrar if articulosSinFiltrar.count(x) == len(categorias)}
-		print(articulos)
 		return articulos
 		
 def insert_comment(comment_content, article_id):
