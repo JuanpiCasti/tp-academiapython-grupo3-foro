@@ -20,10 +20,12 @@ connection = pymysql.connect(
 
 def all_articles():
 
-    with connection.cursor() as cursor:
-        sql = 'SELECT * FROM articulo ORDER BY fecha_articulo DESC'
-        cursor.execute(sql)
-    return cursor.fetchall()
+	with connection.cursor() as cursor:
+		sql = """SELECT nombre, idArticulo, titulo, contenido, fecha_articulo FROM usuario
+					INNER JOIN articulo as art ON art.usuario_idUsuario = usuario.idUsuario
+					ORDER BY fecha_articulo DESC"""
+		cursor.execute(sql)
+	return cursor.fetchall()
 
 def all_categorias():
 	with connection.cursor() as cursor:
@@ -43,15 +45,15 @@ def all_title_articulo():
 
 def all_articulos_categoria(categoria):
 
-    with connection.cursor() as cursor:
-        sql = f"""SELECT idCategoria FROM categoria WHERE nombre_categoria = '{categoria}'"""
-        cursor.execute(sql)
-        id_categoria = cursor.fetchone()[0]
-        sql = f"""SELECT * FROM articulo 
-                INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = articulo.idArticulo 
-                and axc.categoria_idCategoria = {id_categoria} ORDER BY fecha_articulo DESC"""
-        cursor.execute(sql)
-        return cursor.fetchall()
+	with connection.cursor() as cursor:
+		sql = f"""SELECT nombre, idArticulo, titulo, contenido, fecha_articulo FROM usuario
+					INNER JOIN articulo as art ON art.usuario_idUsuario = usuario.idUsuario
+					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = art.idArticulo
+					INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
+					WHERE cat.nombre_categoria =  '{categoria}' 
+					ORDER BY fecha_articulo DESC"""
+		cursor.execute(sql)
+		return cursor.fetchall()
 
 
 def all_comentarios_de_articulo(id_articulo):
@@ -67,12 +69,10 @@ def all_comentarios_de_articulo(id_articulo):
 
 def all_user_article(user):
       with connection.cursor() as cursor:
-            user_query = f"""
-						SELECT idUsuario FROM usuario WHERE nombre = '{user}'
-					    """
-            cursor.execute(user_query)
-            idUsuario = cursor.fetchone()[0]
-            articles_query = f"""SELECT * FROM articulo WHERE usuario_idUsuario = {idUsuario}"""
+            articles_query = f"""SELECT nombre, idArticulo, titulo, contenido, fecha_articulo FROM usuario
+								INNER JOIN articulo as art ON art.usuario_idUsuario = usuario.idUsuario
+								WHERE usuario.nombre =  '{user}' 
+								ORDER BY fecha_articulo DESC"""
             cursor.execute(articles_query)
             articles = cursor.fetchall()
             return articles
@@ -162,14 +162,15 @@ def all_articulos_categorias(categorias):
 					INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
 					WHERE cat.nombre_categoria =  '{cat}'
 				"""
-			aux = []
+			articulos = []
 			cursor.execute(sql)
-			aux.append(cursor.fetchall())
-			for elem in aux:
+			articulos.append(cursor.fetchall())
+			for elem in articulos:
 				for x in elem:
 					articulosSinFiltrar.append(x)
-		articulos = {x for x in articulosSinFiltrar if articulosSinFiltrar.count(x) == len(categorias)}
-		return articulos
+		set = {x for x in articulosSinFiltrar if articulosSinFiltrar.count(x) == len(categorias)}
+		articulos = list(set)
+		return sorted(articulos, key = lambda art: (art[4].strftime("%j")), reverse = True)
 		
 def insert_comment(comment_content, article_id):
 	with connection.cursor() as cursor:
