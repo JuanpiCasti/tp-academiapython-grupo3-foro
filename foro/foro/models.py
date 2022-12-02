@@ -145,7 +145,61 @@ def comentarios_articulo(article_id):
 
 
 def get_user(user_id):
-    with connection.cursor() as cursor:
-        query = f""" SELECT * FROM usuario WHERE idUsuario = {user_id} """
-        cursor.execute(query)
-        return cursor.fetchone()
+	with connection.cursor() as cursor:
+		query = f""" SELECT * FROM usuario WHERE idUsuario = {user_id} """
+		cursor.execute(query)
+		return cursor.fetchone()
+
+def all_articulos_categorias(categorias):
+
+	with connection.cursor() as cursor:
+		articulosSinFiltrar = []
+		for cat in categorias:
+			sql = f"""
+					SELECT nombre, idArticulo, titulo, contenido, fecha_articulo FROM usuario
+					INNER JOIN articulo as art ON art.usuario_idUsuario = usuario.idUsuario
+					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = art.idArticulo
+					INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
+					WHERE cat.nombre_categoria =  '{cat}'
+				"""
+			articulos = []
+			cursor.execute(sql)
+			articulos.append(cursor.fetchall())
+			for elem in articulos:
+				for x in elem:
+					articulosSinFiltrar.append(x)
+		set = {x for x in articulosSinFiltrar if articulosSinFiltrar.count(x) == len(categorias)}
+		articulos = list(set)
+		return sorted(articulos, key = lambda art: (art[4].strftime("%j")), reverse = True)
+		
+def insert_comment(comment_content, article_id):
+	with connection.cursor() as cursor:
+		query = f"""INSERT INTO comentario(contenido_comentario, fecha_comentario, articulo_idArticulo)
+				VALUES ('{comment_content}', '{today_date()}', {article_id})"""
+		cursor.execute(query)
+		connection.commit()
+	
+
+def get_user_By_username(username):
+     with connection.cursor() as cursor:
+        fetch_user = f"SELECT * FROM usuario WHERE nombre = '{username}' "
+        cursor.execute(fetch_user)
+        user = cursor.fetchone()
+        return user  
+
+
+def saveUser(username,password,rol):
+    if ( get_user_By_username(username) != None ):
+        print("error") # Tiramos cartelito de error 
+    else:
+        query = f"INSERT INTO usuario(nombre, contrasenia, tipo_usuario_idtipo_usuario) VALUES ( '{username}','{password}',{rol})" 
+        insert_query(query) 
+        print("LLEGUE ACA 6,4")
+        print("LLEGUE ACA 6,5")
+
+        print("LLEGUE ACA 6,8")
+
+  
+
+
+     
