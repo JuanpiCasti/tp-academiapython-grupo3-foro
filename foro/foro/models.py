@@ -2,10 +2,10 @@ import pymysql
 from .utils import today_date
 
 connection = pymysql.connect(
-	host='localhost',
-	user='root',
-	password='1234',
-	db='foro'
+    host='localhost',
+    user='root',
+    password='1234',
+    db='foro'
 )
 
 # def ejemplo():
@@ -145,37 +145,7 @@ def comentarios_articulo(article_id):
 
 
 def get_user(user_id):
-	with connection.cursor() as cursor:
-		query = f""" SELECT * FROM usuario WHERE idUsuario = {user_id} """
-		cursor.execute(query)
-		return cursor.fetchone()
-
-def all_articulos_categorias(categorias):
-
-	with connection.cursor() as cursor:
-		articulosSinFiltrar = []
-		for cat in categorias:
-			sql = f"""
-					SELECT nombre, idArticulo, titulo, contenido, fecha_articulo FROM usuario
-					INNER JOIN articulo as art ON art.usuario_idUsuario = usuario.idUsuario
-					INNER JOIN articulo_x_categoria as axc ON axc.articulo_idArticulo = art.idArticulo
-					INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
-					WHERE cat.nombre_categoria =  '{cat}'
-				"""
-			articulos = []
-			cursor.execute(sql)
-			articulos.append(cursor.fetchall())
-			for elem in articulos:
-				for x in elem:
-					articulosSinFiltrar.append(x)
-		set = {x for x in articulosSinFiltrar if articulosSinFiltrar.count(x) == len(categorias)}
-		articulos = list(set)
-		return sorted(articulos, key = lambda art: (art[4].strftime("%j")), reverse = True)
-		
-def insert_comment(comment_content, article_id):
-	with connection.cursor() as cursor:
-		query = f"""INSERT INTO comentario(contenido_comentario, fecha_comentario, articulo_idArticulo)
-				VALUES ('{comment_content}', '{today_date()}', {article_id})"""
-		cursor.execute(query)
-		connection.commit()
-	
+    with connection.cursor() as cursor:
+        query = f""" SELECT * FROM usuario WHERE idUsuario = {user_id} """
+        cursor.execute(query)
+        return cursor.fetchone()

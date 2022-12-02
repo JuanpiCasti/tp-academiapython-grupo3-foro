@@ -26,7 +26,13 @@ urlpatterns = [
     path('escribir/', escribir_articulo),
     path('subirarticulo/', subir_articulo),
     path('mostrararticulo/<int:article_id>', articulo),
+<<<<<<< HEAD
     path('filtroAvanzado/', articulos_categorias),
     path('recibiendoGet/', recibiendoGet),
     path('mostrararticulo/subircomentario/', subir_comentario),
+=======
+    path('registerUser/', register),
+    path('registerUser/register/',registerUser)
+
+>>>>>>> origin/registerComponent
 ]
