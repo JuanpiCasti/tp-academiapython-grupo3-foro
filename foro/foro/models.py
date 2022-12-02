@@ -130,6 +130,21 @@ def insert_article(article_title, article_content, user, categories=[]):
 	return article_id
 
 
+def update_article_query(article_id, article_title, article_content, categories=[]):
+	with connection.cursor() as cursor:
+		query = f"""UPDATE articulo SET titulo = '{article_title}', contenido = '{article_content}' WHERE idArticulo = {article_id}"""
+		cursor.execute(query)
+		connection.commit()
+	delete_all_categories_from_article(article_id)
+	insert_article_categories(article_id, categories)
+	return article_id
+
+def delete_all_categories_from_article(article_id):
+	with connection.cursor() as cursor:
+		query = f""" DELETE FROM articulo_x_categoria WHERE articulo_idArticulo = {article_id} """
+		cursor.execute(query)
+		connection.commit()
+
 def get_article(article_id):
 	with connection.cursor() as cursor:
 		query = f""" SELECT * FROM articulo WHERE idArticulo = {article_id} """

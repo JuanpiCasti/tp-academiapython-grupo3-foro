@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1 class="title is-1">Escribir artículo</h1> 
+    
+
+    <form action="/actualizararticulo/" method="post" class="box">
+        <input name="article_id" value="{{articulo.0}}" type="hidden">
+        <div class="field">
+            <label class="label">Nombre de usuario</label>
+            <div class="control">
+                <input class="input" name="username" type="text" value="{{nombre_usuario}}" placeholder="Ingrese su nombre de usuario">
+            </div>
+            </div>
+        
+            <div class="field">
+            <label class="label">Contraseña</label>
+            <div class="control">
+                <input class="input" name="password" type="password" placeholder="Ingrese su Contraseña">
+            </div>
+            </div>
+        
+            <div class="field">
+            <label class="label">Título del artículo</label>
+            <div class="control">
+                <input class="input" name="article_title" type="text" value="{{articulo.1}}" placeholder="Ingrese el Titulo del Articulo">
+            </div>
+            </div>
+        
+            <div class="field">
+            <label class="label">Contenido del artículo</label>
+            <div class="control">
+                <textarea class="textarea" name="article_content" placeholder="Escriba el articulo">{{articulo.2}}</textarea>
+            </div>
+            </div>
+
+            <label class="label">Categorías</label>
+            <div class="checklist">
+                {% for categoria in categorias %}
+            
+                <label class="checkbox">
+                    <input type="checkbox" id={{categoria.0}} name="categories" value="{{categoria.0}}">
+                    {{categoria.1}}
+                </label>
+
+            {% endfor %}
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <input type="submit" class="button is-link"/>
+                </div>
+            </div>
+
+
+
+    </form> 
+      
+
+      
+
+    
+
+
+{% endblock %}

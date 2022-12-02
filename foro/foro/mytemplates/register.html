@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Register</title>
 
@@ -20,8 +21,8 @@
 
     </script>
 </head>
-
 <body  >
+    {% include "navbar.html" %}
     <div class="text-center" >
         <form class="box"  method="POST" action="register/">
             

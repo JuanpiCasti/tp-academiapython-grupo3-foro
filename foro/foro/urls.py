@@ -30,6 +30,7 @@ urlpatterns = [
     path('recibiendoGet/', recibiendoGet),
     path('mostrararticulo/subircomentario/', subir_comentario),
     path('registerUser/', register),
-    path('registerUser/register/',registerUser)
-
+    path('registerUser/register/',registerUser),
+    path('editararticulo/<int:article_id>', edit_article),
+    path('actualizararticulo/', update_article)
 ]

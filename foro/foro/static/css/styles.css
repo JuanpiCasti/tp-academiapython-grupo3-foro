@@ -3,8 +3,6 @@
     flex-direction: column;
     margin-bottom: 10px;
 }
-<<<<<<< HEAD
-=======
 .registerBody{
 	position: absolute;
 	top: -20px;
@@ -19,4 +17,3 @@
 	z-index: 0;
     text-align: center;
   }
->>>>>>> origin/registerComponent
