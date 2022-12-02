@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `foro`.`usuario` (
     FOREIGN KEY (`tipo_usuario_idtipo_usuario`)
     REFERENCES `foro`.`tipo_usuario` (`idtipo_usuario`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 26
+AUTO_INCREMENT = 30
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -64,9 +64,10 @@ CREATE TABLE IF NOT EXISTS `foro`.`articulo` (
   INDEX `fk_articulo_usuario_idx` (`usuario_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_articulo_usuario`
     FOREIGN KEY (`usuario_idUsuario`)
-    REFERENCES `foro`.`usuario` (`idUsuario`))
+    REFERENCES `foro`.`usuario` (`idUsuario`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 55
+AUTO_INCREMENT = 65
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -97,12 +98,14 @@ CREATE TABLE IF NOT EXISTS `foro`.`articulo_x_categoria` (
   INDEX `fk_articulo_x_categoria_categoria1_idx` (`categoria_idCategoria` ASC) VISIBLE,
   CONSTRAINT `fk_articulo_x_categoria_articulo1`
     FOREIGN KEY (`articulo_idArticulo`)
-    REFERENCES `foro`.`articulo` (`idArticulo`),
+    REFERENCES `foro`.`articulo` (`idArticulo`)
+    ON DELETE CASCADE,
   CONSTRAINT `fk_articulo_x_categoria_categoria1`
     FOREIGN KEY (`categoria_idCategoria`)
-    REFERENCES `foro`.`categoria` (`idCategoria`))
+    REFERENCES `foro`.`categoria` (`idCategoria`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 60
+AUTO_INCREMENT = 81
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -118,13 +121,15 @@ CREATE TABLE IF NOT EXISTS `foro`.`comentario` (
   PRIMARY KEY (`idComentario`),
   UNIQUE INDEX `idComentario_UNIQUE` (`idComentario` ASC) VISIBLE,
   INDEX `fk_comentario_articulo1_idx` (`articulo_idArticulo` ASC) VISIBLE,
-  INDEX `fk_user` (`id_usuario` ASC) VISIBLE,
+  INDEX `comentario_ibfk_1` (`id_usuario` ASC) VISIBLE,
   CONSTRAINT `comentario_ibfk_1`
     FOREIGN KEY (`id_usuario`)
-    REFERENCES `foro`.`usuario` (`idUsuario`),
+    REFERENCES `foro`.`usuario` (`idUsuario`)
+    ON DELETE CASCADE,
   CONSTRAINT `fk_comentario_articulo1`
     FOREIGN KEY (`articulo_idArticulo`)
-    REFERENCES `foro`.`articulo` (`idArticulo`))
+    REFERENCES `foro`.`articulo` (`idArticulo`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb3;
