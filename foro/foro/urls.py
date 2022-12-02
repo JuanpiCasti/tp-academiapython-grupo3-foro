@@ -29,4 +29,7 @@ urlpatterns = [
     path('filtroAvanzado/', articulos_categorias),
     path('recibiendoGet/', recibiendoGet),
     path('mostrararticulo/subircomentario/', subir_comentario),
+    path('registerUser/', register),
+    path('registerUser/register/',registerUser)
+
 ]

@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 from .reconocimiento import reconocer_persona
+from django.contrib.auth.forms import UserCreationForm
+
 
 def error(request, msg):
     return render(request, 'error.html', context={"error": msg})
@@ -115,3 +117,49 @@ def subir_comentario(request):
    
     
     return redirect(f'/mostrararticulo/{article_id}')
+
+def convertRol(request):
+    
+    match request.POST["rol"]:
+        case "escritor":
+            return 2
+        case "comentador":
+            return 3
+        case _:
+            msg = "Hubo un problema con el rol seleccionado"
+            return error(request,msg)
+
+
+def register(request):
+    return render(request, 'register.html')
+
+
+def registerUser(request):
+    print("LLEGUE ACAA1")
+    username = request.POST["username"]
+    password_one = request.POST["password1"]
+    password_two = request.POST["password2"]
+    email = request.POST["email"]
+
+    rol = convertRol(request)
+
+    if password_one != password_two:
+        msg = "Las contraseñas son distintas, por favor vuelva a escribirlas."
+        return error(request, msg)
+
+    user = identify_user(username, password_one)
+
+    if user:
+        msg = "Ya existe esa cuenta, no es necesario registrarse"
+        return error(request, msg)
+    else:
+        saveUser(username,password_one,rol)
+        redirect_home  
+        
+    
+    
+    
+   
+
+
+

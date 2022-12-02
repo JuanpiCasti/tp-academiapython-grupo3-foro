@@ -179,3 +179,27 @@ def insert_comment(comment_content, article_id):
 		cursor.execute(query)
 		connection.commit()
 	
+
+def get_user_By_username(username):
+     with connection.cursor() as cursor:
+        fetch_user = f"SELECT * FROM usuario WHERE nombre = '{username}' "
+        cursor.execute(fetch_user)
+        user = cursor.fetchone()
+        return user  
+
+
+def saveUser(username,password,rol):
+    if ( get_user_By_username(username) != None ):
+        print("error") # Tiramos cartelito de error 
+    else:
+        query = f"INSERT INTO usuario(nombre, contrasenia, tipo_usuario_idtipo_usuario) VALUES ( '{username}','{password}',{rol})" 
+        insert_query(query) 
+        print("LLEGUE ACA 6,4")
+        print("LLEGUE ACA 6,5")
+
+        print("LLEGUE ACA 6,8")
+
+  
+
+
+     
