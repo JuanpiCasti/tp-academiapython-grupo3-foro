@@ -22,7 +22,6 @@ def reconocer_persona():
         (id_clase, puntaje, caja) = modelo.detect(frame)
 
         for id_clase, puntaje, caja in zip(id_clase, puntaje, caja):
-            print(classes[id_clase])
             if classes[id_clase] == "person": 
                 captura_video.release()
                 return 0

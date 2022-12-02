@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserCreationForm
 def error(request, msg):
     return render(request, 'error.html', context={"error": msg})
 
+def success(request, msg):
+    return render(request, 'success.html', context={"message": msg})
 
 def home(request):
     articulos = all_articles()
@@ -95,7 +97,8 @@ def subir_comentario(request):
     username = request.POST["username"]
     password = request.POST["password"]
     comment_content = request.POST["comment_content"]
-    reconocer_persona()
+    if reconocer_persona() == 1:
+        return error(request, msg = "Pasaron 10s y no se reconocio a ninguna persona")
     user = identify_user(username, password)
 
     
@@ -135,7 +138,6 @@ def registerUser(request):
     username = request.POST["username"]
     password_one = request.POST["password1"]
     password_two = request.POST["password2"]
-    email = request.POST["email"]
 
     rol = convertRol(request)
 
@@ -168,7 +170,8 @@ def update_article(request):
     article_title = request.POST["article_title"]
     article_content = request.POST["article_content"]
     categories = request.POST.getlist("categories")
-    reconocer_persona()
+    if reconocer_persona() == 1:
+        return error(request, msg = "Pasaron 10s y no se reconocio a ninguna persona")
     user = identify_user(username, password)
 
     article = get_article(article_id)
@@ -199,6 +202,27 @@ def update_article(request):
 
     return redirect(f'/mostrararticulo/{article_id}')
 
+@csrf_exempt
+def confirm_article_delete(request):
+    article_id = request.POST["article_id"]
+    username = request.POST["username"]
+    password = request.POST["password"]
+
+    if reconocer_persona() == 1:
+        return error(request, msg = "Pasaron 10s y no se reconocio a ninguna persona")
+    user = identify_user(username, password)
+
+    article = get_article(article_id)
+    author_id = article[4]
 
 
-
+    if not user:
+        msg = "No se encontro un usuario con esa combinación de credenciales."
+        return error(request, msg)
+    elif user[0] != author_id:
+        msg = "No podes eliminar un articulo subido por otra persona."
+        return error(request, msg)
+    else:
+        delete_article(article_id)
+    
+    return success(request, msg="Se ha eliminado el articulo correctamente.")

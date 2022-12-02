@@ -59,11 +59,8 @@ def all_articulos_categoria(categoria):
 def all_comentarios_de_articulo(id_articulo):
 
 	with connection.cursor() as cursor:
-		try:
-			sql = f'SELECT * FROM comentario WHERE Articulo_idArticulo={id_articulo}'
-			cursor.execute(sql)
-		except Exception:
-			print("No se encontro comentario para un articulo con ese ID.")
+		sql = f'SELECT * FROM comentario WHERE Articulo_idArticulo={id_articulo}'
+		cursor.execute(sql)
 	return cursor.fetchall()
 
 
@@ -139,6 +136,13 @@ def update_article_query(article_id, article_title, article_content, categories=
 	insert_article_categories(article_id, categories)
 	return article_id
 
+def delete_article(article_id):
+	with connection.cursor() as cursor:
+		query = f"DELETE FROM articulo WHERE idArticulo={article_id}"
+		cursor.execute(query)
+		connection.commit()
+	
+
 def delete_all_categories_from_article(article_id):
 	with connection.cursor() as cursor:
 		query = f""" DELETE FROM articulo_x_categoria WHERE articulo_idArticulo = {article_id} """
@@ -204,17 +208,5 @@ def get_user_By_username(username):
 
 
 def saveUser(username,password,rol):
-    if ( get_user_By_username(username) != None ):
-        print("error") # Tiramos cartelito de error 
-    else:
-        query = f"INSERT INTO usuario(nombre, contrasenia, tipo_usuario_idtipo_usuario) VALUES ( '{username}','{password}',{rol})" 
-        insert_query(query) 
-        print("LLEGUE ACA 6,4")
-        print("LLEGUE ACA 6,5")
-
-        print("LLEGUE ACA 6,8")
-
-  
-
-
-     
+	query = f"INSERT INTO usuario(nombre, contrasenia, tipo_usuario_idtipo_usuario) VALUES ( '{username}','{password}',{rol})" 
+	insert_query(query)	

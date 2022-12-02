@@ -27,11 +27,14 @@ CREATE TABLE `comentario` (
   `contenido_comentario` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `fecha_comentario` date NOT NULL,
   `articulo_idArticulo` int unsigned NOT NULL,
+  `id_usuario` int unsigned NOT NULL DEFAULT (1),
   PRIMARY KEY (`idComentario`),
   UNIQUE KEY `idComentario_UNIQUE` (`idComentario`),
   KEY `fk_comentario_articulo1_idx` (`articulo_idArticulo`),
-  CONSTRAINT `fk_comentario_articulo1` FOREIGN KEY (`articulo_idArticulo`) REFERENCES `articulo` (`idArticulo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  KEY `comentario_ibfk_1` (`id_usuario`),
+  CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE,
+  CONSTRAINT `fk_comentario_articulo1` FOREIGN KEY (`articulo_idArticulo`) REFERENCES `articulo` (`idArticulo`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +43,7 @@ CREATE TABLE `comentario` (
 
 LOCK TABLES `comentario` WRITE;
 /*!40000 ALTER TABLE `comentario` DISABLE KEYS */;
+INSERT INTO `comentario` VALUES (1,'Hola esto es una prueba','2022-11-23',1,1),(2,'Hola esto es una prueba','2022-11-23',1,1),(3,'Hola esto es una prueba','2022-11-23',1,1),(4,'Hola esto es una prueba','2022-11-23',1,1),(5,'Hola esto es una prueba','2022-11-23',1,1),(6,'al;dksja;sldf\r\n','2022-11-25',1,1),(7,'asdfasdfasdf','2022-11-25',1,1),(8,'prueba comentario','2022-11-28',54,1);
 /*!40000 ALTER TABLE `comentario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-18 19:36:18
+-- Dump completed on 2022-12-02 17:43:03

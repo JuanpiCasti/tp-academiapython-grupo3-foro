@@ -32,5 +32,6 @@ urlpatterns = [
     path('registerUser/', register),
     path('registerUser/register/',registerUser),
     path('editararticulo/<int:article_id>', edit_article),
-    path('actualizararticulo/', update_article)
+    path('actualizararticulo/', update_article),
+    path('borrararticulo/', confirm_article_delete)
 ]
