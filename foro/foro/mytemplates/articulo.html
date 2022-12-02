@@ -11,8 +11,36 @@
             </p>
         </div>
         <div class="article-footer mt-5">
-            <a class="button is-danger" href="/editararticulo/{{articulo.0}}">Editar</a>
+            <a class="button is-warning" href="/editararticulo/{{articulo.0}}">Editar</a>
+            <button class="button is-danger delete-button" href="">Eliminar</button>
         </div>
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+              <div class="box">
+                    <h3 class="subtitle is-4">Confirme credenciales para eliminar el artículo.</h3>
+                  <form action="/borrararticulo">
+
+                    <input name="article_id" value="{{articulo.0}}" type="hidden">
+                    <div class="field">
+                        <label class="label">Nombre de usuario</label>
+                        <div class="control">
+                            <input class="input" name="username" type="text" value="{{nombre_usuario}}" placeholder="Ingrese su nombre de usuario">
+                        </div>
+                        </div>
+                    
+                        <div class="field">
+                        <label class="label">Contraseña</label>
+                        <div class="control">
+                            <input class="input" name="password" type="password" placeholder="Ingrese su Contraseña">
+                        </div>
+                        </div>
+
+                  </form>
+              </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+          </div>
     </div>
 
     <div class="box">
@@ -36,6 +64,29 @@
         </div>
     </div>
     
-    
 
+{% endblock %}
+
+{% block script %}
+<script>
+    const modal = document.getElementsByClassName('modal')[0];
+    const deletebutton = document.getElementsByClassName('delete-button')[0];
+    const closemodal = document.getElementsByClassName('modal-close')[0];
+    let isActive = false;
+
+    function changeModal() {
+        isActive = !isActive;
+        if(isActive) {
+            modal.classList.add('is-active');
+        } else {
+            modal.classList.remove('is-active')
+        }
+        console.log(isActive);
+    };
+    
+    deletebutton.addEventListener('click', changeModal);
+    closemodal.addEventListener('click', changeModal);
+
+
+</script>
 {% endblock %}
