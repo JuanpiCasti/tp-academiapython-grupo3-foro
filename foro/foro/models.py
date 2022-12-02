@@ -139,6 +139,13 @@ def update_article_query(article_id, article_title, article_content, categories=
 	insert_article_categories(article_id, categories)
 	return article_id
 
+def delete_article(article_id):
+	with connection.cursor() as cursor:
+		query = f"DELETE FROM articulo WHERE idArticulo={article_id}"
+		cursor.execute(query)
+		connection.commit()
+	
+
 def delete_all_categories_from_article(article_id):
 	with connection.cursor() as cursor:
 		query = f""" DELETE FROM articulo_x_categoria WHERE articulo_idArticulo = {article_id} """
@@ -214,7 +221,7 @@ def saveUser(username,password,rol):
 
         print("LLEGUE ACA 6,8")
 
-  
+
 
 
      

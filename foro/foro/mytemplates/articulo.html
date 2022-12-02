@@ -19,7 +19,7 @@
             <div class="modal-content">
               <div class="box">
                     <h3 class="subtitle is-4">Confirme credenciales para eliminar el artículo.</h3>
-                  <form action="/borrararticulo">
+                  <form action="/borrararticulo/" method="post">
 
                     <input name="article_id" value="{{articulo.0}}" type="hidden">
                     <div class="field">
@@ -35,6 +35,8 @@
                             <input class="input" name="password" type="password" placeholder="Ingrese su Contraseña">
                         </div>
                         </div>
+
+                        <input type="submit" class="button is-danger" value="Eliminar">
 
                   </form>
               </div>

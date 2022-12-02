@@ -33,5 +33,5 @@ urlpatterns = [
     path('registerUser/register/',registerUser),
     path('editararticulo/<int:article_id>', edit_article),
     path('actualizararticulo/', update_article),
-    # path('confirmarborrararticulo/<int:raticle_id>', confirm_article_delete)
+    path('borrararticulo/', confirm_article_delete)
 ]

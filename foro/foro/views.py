@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserCreationForm
 def error(request, msg):
     return render(request, 'error.html', context={"error": msg})
 
+def success(request, msg):
+    return render(request, 'success.html', context={"message": msg})
 
 def home(request):
     articulos = all_articles()
@@ -199,6 +201,26 @@ def update_article(request):
 
     return redirect(f'/mostrararticulo/{article_id}')
 
+@csrf_exempt
+def confirm_article_delete(request):
+    article_id = request.POST["article_id"]
+    username = request.POST["username"]
+    password = request.POST["password"]
+
+    reconocer_persona()
+    user = identify_user(username, password)
+
+    article = get_article(article_id)
+    author_id = article[4]
 
 
-
+    if not user:
+        msg = "No se encontro un usuario con esa combinación de credenciales."
+        return error(request, msg)
+    elif user[0] != author_id:
+        msg = "No podes eliminar un articulo subido por otra persona."
+        return error(request, msg)
+    else:
+        delete_article(article_id)
+    
+    return success(request, msg="Se ha eliminado el articulo correctamente.")
