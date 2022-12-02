@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `foro`.`tipo_usuario` (
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idtipo_usuario`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -43,11 +44,9 @@ CREATE TABLE IF NOT EXISTS `foro`.`usuario` (
   INDEX `fk_usuario_tipo_usuario1_idx` (`tipo_usuario_idtipo_usuario` ASC) VISIBLE,
   CONSTRAINT `fk_usuario_tipo_usuario1`
     FOREIGN KEY (`tipo_usuario_idtipo_usuario`)
-    REFERENCES `foro`.`tipo_usuario` (`idtipo_usuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `foro`.`tipo_usuario` (`idtipo_usuario`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 21
+AUTO_INCREMENT = 26
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -67,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `foro`.`articulo` (
     FOREIGN KEY (`usuario_idUsuario`)
     REFERENCES `foro`.`usuario` (`idUsuario`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 29
+AUTO_INCREMENT = 55
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -103,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `foro`.`articulo_x_categoria` (
     FOREIGN KEY (`categoria_idCategoria`)
     REFERENCES `foro`.`categoria` (`idCategoria`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 29
+AUTO_INCREMENT = 60
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -115,13 +114,19 @@ CREATE TABLE IF NOT EXISTS `foro`.`comentario` (
   `contenido_comentario` VARCHAR(255) CHARACTER SET 'utf8mb3' NOT NULL,
   `fecha_comentario` DATE NOT NULL,
   `articulo_idArticulo` INT UNSIGNED NOT NULL,
+  `id_usuario` INT UNSIGNED NOT NULL DEFAULT 1,
   PRIMARY KEY (`idComentario`),
   UNIQUE INDEX `idComentario_UNIQUE` (`idComentario` ASC) VISIBLE,
   INDEX `fk_comentario_articulo1_idx` (`articulo_idArticulo` ASC) VISIBLE,
+  INDEX `fk_user` (`id_usuario` ASC) VISIBLE,
+  CONSTRAINT `comentario_ibfk_1`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `foro`.`usuario` (`idUsuario`),
   CONSTRAINT `fk_comentario_articulo1`
     FOREIGN KEY (`articulo_idArticulo`)
     REFERENCES `foro`.`articulo` (`idArticulo`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb3;
 
 

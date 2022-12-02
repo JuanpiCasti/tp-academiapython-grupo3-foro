@@ -28,7 +28,7 @@
             {% for comentario in comentarios %}
                 <hr/>
                 <p>{{comentario.1}}</p>
-                <span class="is-size-7">{{comentario.2}}</span>
+                <span class="is-size-7"><a href="/home/user/{{comentario.4}}">{{comentario.4}}</a> - {{comentario.2}}</span>
             {% endfor %}
         </div>
     </div>

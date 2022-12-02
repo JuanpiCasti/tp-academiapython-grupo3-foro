@@ -139,7 +139,7 @@ def get_article(article_id):
 
 def comentarios_articulo(article_id):
 	with connection.cursor() as cursor:
-		sql = f"SELECT * FROM comentario WHERE articulo_idArticulo={article_id} ORDER BY fecha_comentario DESC"
+		sql = f"SELECT idComentario, contenido_comentario, fecha_comentario, articulo_idArticulo, nombre FROM comentario INNER JOIN usuario ON usuario.idUsuario = comentario.id_usuario WHERE articulo_idArticulo={article_id} ORDER BY fecha_comentario DESC"
 		cursor.execute(sql)
 		return cursor.fetchall()
 
