@@ -42,7 +42,8 @@ def subir_articulo(request):
     article_title = request.POST["article_title"]
     article_content = request.POST["article_content"]
     categories = request.POST.getlist("categories")
-    reconocer_persona()
+    if reconocer_persona() == 1:
+        return error(request, msg = "Pasaron 10s y no se reconocio a ninguna persona")
     user = identify_user(username, password)
 
     if not user:
