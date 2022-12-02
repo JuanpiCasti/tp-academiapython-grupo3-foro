@@ -59,11 +59,8 @@ def all_articulos_categoria(categoria):
 def all_comentarios_de_articulo(id_articulo):
 
 	with connection.cursor() as cursor:
-		try:
-			sql = f'SELECT * FROM comentario WHERE Articulo_idArticulo={id_articulo}'
-			cursor.execute(sql)
-		except Exception:
-			print("No se encontro comentario para un articulo con ese ID.")
+		sql = f'SELECT * FROM comentario WHERE Articulo_idArticulo={id_articulo}'
+		cursor.execute(sql)
 	return cursor.fetchall()
 
 
@@ -211,17 +208,5 @@ def get_user_By_username(username):
 
 
 def saveUser(username,password,rol):
-    if ( get_user_By_username(username) != None ):
-        print("error") # Tiramos cartelito de error 
-    else:
-        query = f"INSERT INTO usuario(nombre, contrasenia, tipo_usuario_idtipo_usuario) VALUES ( '{username}','{password}',{rol})" 
-        insert_query(query) 
-        print("LLEGUE ACA 6,4")
-        print("LLEGUE ACA 6,5")
-
-        print("LLEGUE ACA 6,8")
-
-
-
-
-     
+	query = f"INSERT INTO usuario(nombre, contrasenia, tipo_usuario_idtipo_usuario) VALUES ( '{username}','{password}',{rol})" 
+	insert_query(query)	

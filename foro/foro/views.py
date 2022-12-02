@@ -97,7 +97,8 @@ def subir_comentario(request):
     username = request.POST["username"]
     password = request.POST["password"]
     comment_content = request.POST["comment_content"]
-    reconocer_persona()
+    if reconocer_persona() == 1:
+        return error(request, msg = "Pasaron 10s y no se reconocio a ninguna persona")
     user = identify_user(username, password)
 
     
@@ -137,7 +138,6 @@ def registerUser(request):
     username = request.POST["username"]
     password_one = request.POST["password1"]
     password_two = request.POST["password2"]
-    email = request.POST["email"]
 
     rol = convertRol(request)
 
@@ -170,7 +170,8 @@ def update_article(request):
     article_title = request.POST["article_title"]
     article_content = request.POST["article_content"]
     categories = request.POST.getlist("categories")
-    reconocer_persona()
+    if reconocer_persona() == 1:
+        return error(request, msg = "Pasaron 10s y no se reconocio a ninguna persona")
     user = identify_user(username, password)
 
     article = get_article(article_id)
@@ -207,7 +208,8 @@ def confirm_article_delete(request):
     username = request.POST["username"]
     password = request.POST["password"]
 
-    reconocer_persona()
+    if reconocer_persona() == 1:
+        return error(request, msg = "Pasaron 10s y no se reconocio a ninguna persona")
     user = identify_user(username, password)
 
     article = get_article(article_id)
