@@ -62,6 +62,10 @@ def subir_articulo(request):
         msg = "El artículo debe tener contenido."
         return error(request, msg)
 
+    if not categories:
+        msg = "Por favor especifique categorías."
+        return error(request, msg)
+
     if reconocer_persona() == 1:
         return error(request, msg="Pasaron 10s y no se reconocio a ninguna persona")
     if user[3] in admin_or_writer_type_ids():
