@@ -124,8 +124,8 @@ def insert_article(article_title, article_content, user, categories=[]):
     query = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
 			VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
     article_id = insert_query(query)
-    if categories:
-        insert_article_categories(article_id, categories)
+    insert_article_categories(article_id, categories)
+
     return article_id
 
 
@@ -169,7 +169,7 @@ def get_article_categories(article_id):
                         INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
                         WHERE axc.articulo_idArticulo =  {article_id}"""
             cursor.execute(query)
-            return cursor.fetchall()
+        return cursor.fetchall()
 
 def comentarios_articulo(article_id):
     with connection.cursor() as cursor:

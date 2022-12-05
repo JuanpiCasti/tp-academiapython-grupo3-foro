@@ -185,8 +185,7 @@ def update_article(request):
     article_title = request.POST["article_title"]
     article_content = request.POST["article_content"]
     categories = request.POST.getlist("categories")
-    if reconocer_persona() == 1:
-        return error(request, msg="Pasaron 10s y no se reconocio a ninguna persona")
+    
     user = identify_user(username, password)
 
     article = get_article(article_id)
@@ -206,6 +205,10 @@ def update_article(request):
 
     if not article_content:
         msg = "El artículo debe tener contenido."
+        return error(request, msg)
+    
+    if not categories:
+        msg = "Por favor elija categorías."
         return error(request, msg)
 
     if reconocer_persona() == 1:
