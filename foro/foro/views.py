@@ -160,10 +160,10 @@ def registerUser(request):
         msg = "Ya existe esa cuenta, no es necesario registrarse"
         return error(request, msg)
     else:
+        if reconocer_persona() == 1:
+            return error(request, msg="Pasaron 10s y no se reconocio a ninguna persona")
         saveUser(username, password_one, rol)
         return success(request, "Te has registrado exitosamente.")
-    if reconocer_persona() == 1:
-        return error(request, msg="Pasaron 10s y no se reconocio a ninguna persona")
 
 def edit_article(request, article_id):
     article = get_article(article_id)
