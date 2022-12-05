@@ -2,70 +2,73 @@
 
 {% block content %}
 
-    <div class="box">
-        <h1 class="title is-1">{{articulo.1}}</h1>
-        <span class=""><a href="/home/user/{{author}}">{{author}}</a> - {{articulo.3}}</span>
-        <div class="mt-5">
-            <p>
-                {{articulo.2}}
-            </p>
-        </div>
-        <div class="article-footer mt-5">
-            <a class="button is-warning" href="/editararticulo/{{articulo.0}}">Editar</a>
-            <button class="button is-danger delete-button" href="">Eliminar</button>
-        </div>
-        <div class="modal">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-              <div class="box">
-                    <h3 class="subtitle is-4">Confirme credenciales para eliminar el artículo.</h3>
-                  <form action="/borrararticulo/" method="post">
+<div class="box">
+    <h1 class="title is-1">{{articulo.2}}</h1>
+    <span class=""><a href="/home/user/{{articulo.0}}">{{articulo.0}}</a> - {{articulo.4}}</span>
+    <div class="mt-5">
+        <p>
+            {{articulo.3}}
+        </p>
+    </div>
+    <div class="article-footer mt-5">
+        <a href="/descargararticulo/{{articulo.1}}" class="button is-success"
+            download="articulo{{articulo.1}}.json">Descargar</a>
+        <a class="button is-warning" href="/editararticulo/{{articulo.1}}">Editar</a>
+        <button class="button is-danger delete-button" href="">Eliminar</button>
+    </div>
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <h3 class="subtitle is-4">Confirme credenciales para eliminar el artículo.</h3>
+                <form action="/borrararticulo/" method="post">
 
                     <input name="article_id" value="{{articulo.0}}" type="hidden">
                     <div class="field">
                         <label class="label">Nombre de usuario</label>
                         <div class="control">
-                            <input class="input" name="username" type="text" value="{{nombre_usuario}}" placeholder="Ingrese su nombre de usuario">
+                            <input class="input" name="username" type="text" value="{{nombre_usuario}}"
+                                placeholder="Ingrese su nombre de usuario">
                         </div>
-                        </div>
-                    
-                        <div class="field">
+                    </div>
+
+                    <div class="field">
                         <label class="label">Contraseña</label>
                         <div class="control">
                             <input class="input" name="password" type="password" placeholder="Ingrese su Contraseña">
                         </div>
-                        </div>
+                    </div>
 
-                        <input type="submit" class="button is-danger" value="Eliminar">
+                    <input type="submit" class="button is-danger" value="Eliminar">
 
-                  </form>
-              </div>
+                </form>
             </div>
-            <button class="modal-close is-large" aria-label="close"></button>
-          </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
     </div>
+</div>
 
-    <div class="box">
-        <h2 class="title is-2">Comentarios</h2>
-        
-    
+<div class="box">
+    <h2 class="title is-2">Comentarios</h2>
+
+
 
     {% include 'formulario_comentario.html' %}
-        
-        <div>
 
-            {% if not comentarios %}
-                <p>Todavía no hay ningún comentario</p>
-            {% endif %}
+    <div>
 
-            {% for comentario in comentarios %}
-                <hr/>
-                <p>{{comentario.1}}</p>
-                <span class="is-size-7"><a href="/home/user/{{comentario.4}}">{{comentario.4}}</a> - {{comentario.2}}</span>
-            {% endfor %}
-        </div>
+        {% if not comentarios %}
+        <p>Todavía no hay ningún comentario</p>
+        {% endif %}
+
+        {% for comentario in comentarios %}
+        <hr />
+        <p>{{comentario.1}}</p>
+        <span class="is-size-7"><a href="/home/user/{{comentario.4}}">{{comentario.4}}</a> - {{comentario.2}}</span>
+        {% endfor %}
     </div>
-    
+</div>
+
 
 {% endblock %}
 
@@ -78,14 +81,14 @@
 
     function changeModal() {
         isActive = !isActive;
-        if(isActive) {
+        if (isActive) {
             modal.classList.add('is-active');
         } else {
             modal.classList.remove('is-active')
         }
         console.log(isActive);
     };
-    
+
     deletebutton.addEventListener('click', changeModal);
     closemodal.addEventListener('click', changeModal);
 
