@@ -141,6 +141,8 @@ def registerUser(request):
     password_one = request.POST["password1"]
     password_two = request.POST["password2"]
 
+    if reconocer_persona() == 1:
+        return error(request, msg="Pasaron 10s y no se reconocio a ninguna persona")
     rol = convertRol(request)
 
     if password_one != password_two:
