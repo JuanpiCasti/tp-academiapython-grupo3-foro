@@ -60,7 +60,8 @@ def all_articulos_categoria(categoria):
 def all_comentarios_de_articulo(id_articulo):
 
     with connection.cursor() as cursor:
-        sql = f'SELECT * FROM comentario WHERE Articulo_idArticulo={id_articulo}'
+        sql = f"""SELECT idComentario, contenido_comentario, fecha_comentario, articulo_idArticulo, id_usuario, nombre FROM comentario
+                  INNER JOIN usuario ON usuario.idUsuario = id_usuario WHERE Articulo_idArticulo={id_articulo}"""
         cursor.execute(sql)
     return cursor.fetchall()
 
