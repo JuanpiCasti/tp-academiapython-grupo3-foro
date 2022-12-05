@@ -149,14 +149,14 @@ def registerUser(request):
         msg = "Las contraseñas son distintas, por favor vuelva a escribirlas."
         return error(request, msg)
 
-    user = identify_user(username, password_one)
+    user = get_user_By_username(username)
 
     if user:
         msg = "Ya existe esa cuenta, no es necesario registrarse"
         return error(request, msg)
     else:
         saveUser(username, password_one, rol)
-        return redirect_home(request)
+        return success(request, "Te has registrado exitosamente.")
 
 
 def edit_article(request, article_id):
