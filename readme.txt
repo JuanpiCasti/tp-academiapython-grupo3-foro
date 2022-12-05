@@ -55,4 +55,4 @@ Los comentaristas tienen la posibilidad de buscar artículos mediante un filtro 
 
 En caso de haber cometido un error en la subida del artículo, el escritor tiene la posibilidad de editar su artículo, o en caso de querer eliminarlo también tiene la posibilidad. 
 
-El proyecto fue desarrollado priorizando la mantenibilidad del mismo, en caso de querer desarrollar un nuevo requerimiento, el proyecto se encuentra en buen estado para sufrir mejoras o cualquier tipo de cambio.
+El proyecto fue desarrollado priorizando la mantenibilidad del mismo, en caso de querer desarrollar un nuevo requerimiento, el proyecto se encuentra en buen estado para sufrir mejoras o cualquier tipo de cambio necesario.
