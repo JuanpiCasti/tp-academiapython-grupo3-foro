@@ -11,33 +11,33 @@ Integrantes: Agustina Mercedes Garro, Facundo Nahuel Dalsasso, Juan Pablo Castig
 
 
 ### Lenguaje:
-	*Python
+* Python
 
-###W eb Framework:
-	* Django
+### Web Framework:
+* Django
 
 ### B.D. Relacional:
-	* SQL
- 	* Package pymysql
+* SQL
+* Package pymysql
 
 ### Arquitectura:
-	* Modelo Vista Template (MVT)
-	* Servidor Liviano 
-	* Template Engine: Jinja
+* Modelo Vista Template (MVT)
+* Servidor Liviano 
+* Template Engine: Jinja
 
 ### Vistas: 
-	* HTML
-	* CSS
-	* JavaScript
+* HTML
+* CSS
+* JavaScript
 
 ### Python Dates:
-	* DateTime
+* DateTime
 
 ### Computer Vision:
-	* Open cv
+* Open cv
 
 ### Intercambio De Datos:
-	* Json
+* Json
 	
 
 
@@ -59,7 +59,7 @@ El proyecto fue desarrollado priorizando la mantenibilidad del mismo, en caso de
 
 
 Para correr el proyecto:
-	* En MySQL:
-    	* Correr el script ScriptBD/Foro.sql
-    	* Hacer un data import de los contenidos de ScriptBD/Dump data
-  	* Iniciar el servidor con el comando 'python manage.py runserver' dentro de la carpeta /foro
+* En MySQL:
+** Correr el script ScriptBD/Foro.sql
+** Hacer un data import de los contenidos de ScriptBD/Dump data
+* Iniciar el servidor con el comando 'python manage.py runserver' dentro de la carpeta /foro
