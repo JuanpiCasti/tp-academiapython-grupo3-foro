@@ -60,6 +60,6 @@ El proyecto fue desarrollado priorizando la mantenibilidad del mismo, en caso de
 
 Para correr el proyecto:
 * En MySQL:
-** Correr el script ScriptBD/Foro.sql
-** Hacer un data import de los contenidos de ScriptBD/Dump data
+* Correr el script ScriptBD/Foro.sql
+* Hacer un data import de los contenidos de ScriptBD/Dump data
 * Iniciar el servidor con el comando 'python manage.py runserver' dentro de la carpeta /foro
