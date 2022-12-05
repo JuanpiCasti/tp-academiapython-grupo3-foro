@@ -1,4 +1,4 @@
-Proyecto Final Capacitacion Capgemini
+#Proyecto Final Capacitacion Capgemini
 
 
 Grupo 3: 
@@ -7,37 +7,37 @@ Integrantes: Agustina Mercedes Garro, Facundo Nahuel Dalsasso, Juan Pablo Castig
 
 
 
-Temas y Herramientas Involucrados : 
+#Temas y Herramientas Involucrados : 
 
 
-Lenguaje:
-	-Python
+###Lenguaje:
+	*Python
 
-Web Framework:
-	-Django
+###Web Framework:
+	*Django
 
-B.D. Relacional:
-	-SQL
- 	-Package pymysql
+###B.D. Relacional:
+	*SQL
+ 	*Package pymysql
 
-Arquitectura:
-	-Modelo Vista Template (MVT)
-	-Servidor Liviano 
-	-Template Engine: Jinja
+###Arquitectura:
+	*Modelo Vista Template (MVT)
+	*Servidor Liviano 
+	*Template Engine: Jinja
 
-Vistas: 
-	-HTML
-	-CSS
-	-JavaScript
+###Vistas: 
+	*HTML
+	*CSS
+	*JavaScript
 
-Python Dates:
-	-DateTime
+###Python Dates:
+	*DateTime
 
-Computer Vision:
-	-Open cv
+###Computer Vision:
+	*Open cv
 
-Intercambio De Datos:
-	-Json
+###Intercambio De Datos:
+	*Json
 	
 
 
@@ -59,7 +59,7 @@ El proyecto fue desarrollado priorizando la mantenibilidad del mismo, en caso de
 
 
 Para correr el proyecto:
-	- En MySQL:
-    	- Correr el script ScriptBD/Foro.sql
-    	- Hacer un data import de los contenidos de ScriptBD/Dump data
-  	- Iniciar el servidor con el comando 'python manage.py runserver' dentro de la carpeta /foro
+	* En MySQL:
+    	* Correr el script ScriptBD/Foro.sql
+    	* Hacer un data import de los contenidos de ScriptBD/Dump data
+  	* Iniciar el servidor con el comando 'python manage.py runserver' dentro de la carpeta /foro
