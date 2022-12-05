@@ -1,11 +1,14 @@
 Proyecto Final Capacitacion Capgeminis 
 
-Integrantes:
 
 Grupo 3: 
+Integrantes: Agustina Mercedes Garro, Facundo Nahuel Dalsasso, Juan Pablo Castiglione, Ezequiel Arroyo, Juan Cruz Rey Alvarez.
+
+
 
 
 Temas y Herramientas Involucrados : 
+
 
 Lenguaje:
 	-Python
@@ -37,6 +40,12 @@ Intercambio De Datos:
 	-Json
 	
 
+
+
+
+
+
+
 Nuestro Proyecto: 
 
 El proyecto elegido fue el desarrollo de un foro donde las personas pueden registrarse mediante distintos roles tales como escritores o comentadores,  una vez registrados los primeros tienen la posibilidad de escribir distintos artículos distinguiendolos por categorías, asignándoles un título y su respectivo desarrollo. En cambio los comentadores complementan a los escritores leyendo sus artículos y realizando comentarios del mismo.
@@ -46,11 +55,4 @@ Los comentaristas tienen la posibilidad de buscar artículos mediante un filtro 
 
 En caso de haber cometido un error en la subida del artículo, el escritor tiene la posibilidad de editar su artículo, o en caso de querer eliminarlo también tiene la posibilidad. 
 
-El proyecto fue desarrollado priorizando la mantenibilidad del mismo, en caso de querer desarrollar un nuevo requerimiento, el proyecto se encuentra en buen estado para sufrir mejoras o cualquier tipo de cambio.
-
-
-
-Aplicacion:
-
-
-....
+El proyecto fue desarrollado priorizando la mantenibilidad del mismo, en caso de querer desarrollar un nuevo requerimiento, el proyecto se encuentra en buen estado para sufrir mejoras o cualquier tipo de cambio necesario.
