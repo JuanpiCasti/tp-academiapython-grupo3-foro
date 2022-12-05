@@ -124,7 +124,8 @@ def insert_article(article_title, article_content, user, categories=[]):
     query = f"""INSERT INTO articulo(titulo, contenido, fecha_articulo, usuario_idUsuario)
 			VALUES ('{article_title}', '{article_content}', '{today_date()}', {user[0]})"""
     article_id = insert_query(query)
-    insert_article_categories(article_id, categories)
+    if categories:
+        insert_article_categories(article_id, categories)
     return article_id
 
 
