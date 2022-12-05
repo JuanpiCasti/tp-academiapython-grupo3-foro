@@ -167,7 +167,7 @@ def get_article_categories(article_id):
         with connection.cursor() as cursor:
             query = f"""SELECT cat.nombre_categoria FROM articulo_x_categoria as axc
                         INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
-                        WHERE axc.idArticulo_x_categoria = {article_id}"""
+                        WHERE axc.articulo_idArticulo =  {article_id}"""
             cursor.execute(query)
             return cursor.fetchall()
 

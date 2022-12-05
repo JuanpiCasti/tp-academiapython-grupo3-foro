@@ -13,8 +13,11 @@
     <div class="categories mt-5">
         <span class="has-text-weight-semibold">Categorias:</span>
         <span class="is-italic">
-            {% for categoria in categorias %}
-            {{categoria.0}}
+
+        {% for categoria in categorias %}
+            <a href="/home/cat/{{categoria.0}}">
+                {{categoria.0}}
+            </a>
         {% endfor %}
         </span>
 
