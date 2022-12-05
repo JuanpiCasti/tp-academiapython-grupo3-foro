@@ -129,6 +129,8 @@ def insert_article(article_title, article_content, user, categories=[]):
     return article_id
 
 
+
+
 def update_article_query(article_id, article_title, article_content, categories=[]):
     with connection.cursor() as cursor:
         query = f"""UPDATE articulo SET titulo = '{article_title}', contenido = '{article_content}' WHERE idArticulo = {article_id}"""
@@ -161,6 +163,13 @@ def get_article(article_id):
         cursor.execute(query)
         return cursor.fetchone()
 
+def get_article_categories(article_id):
+        with connection.cursor() as cursor:
+            query = f"""SELECT cat.nombre_categoria FROM articulo_x_categoria as axc
+                        INNER JOIN categoria as cat ON axc.categoria_idCategoria = cat.idCategoria
+                        WHERE axc.idArticulo_x_categoria = {article_id}"""
+            cursor.execute(query)
+            return cursor.fetchall()
 
 def comentarios_articulo(article_id):
     with connection.cursor() as cursor:

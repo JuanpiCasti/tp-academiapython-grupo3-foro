@@ -5,10 +5,19 @@
 <div class="box">
     <h1 class="title is-1">{{articulo.2}}</h1>
     <span class=""><a href="/home/user/{{articulo.0}}">{{articulo.0}}</a> - {{articulo.4}}</span>
-    <div class="mt-5">
+    <div class="mt-5 is-size-5">
         <p>
             {{articulo.3}}
         </p>
+    </div>
+    <div class="categories mt-5">
+        <span class="has-text-weight-semibold">Categorias:</span>
+        <span class="is-italic">
+            {% for categoria in categorias %}
+            {{categoria.0}}
+        {% endfor %}
+        </span>
+
     </div>
     <div class="article-footer mt-5">
         <a href="/descargararticulo/{{articulo.1}}" class="button is-success"
