@@ -35,15 +35,6 @@ def all_categorias():
     return cursor.fetchall()
 
 
-def all_title_articulo():
-
-    with connection.cursor() as cursor:
-        sql = "SELECT titulo FROM articulo"
-        cursor.execute(sql)
-        titulos = cursor.fetchall()
-    return titulos
-
-
 def all_articulos_categoria(categoria):
 
     with connection.cursor() as cursor:
@@ -55,15 +46,6 @@ def all_articulos_categoria(categoria):
 					ORDER BY fecha_articulo DESC"""
         cursor.execute(sql)
         return cursor.fetchall()
-
-
-def all_comentarios_de_articulo(id_articulo):
-
-    with connection.cursor() as cursor:
-        sql = f"""SELECT idComentario, contenido_comentario, fecha_comentario, articulo_idArticulo, id_usuario, nombre FROM comentario
-                  INNER JOIN usuario ON usuario.idUsuario = id_usuario WHERE Articulo_idArticulo={id_articulo}"""
-        cursor.execute(sql)
-    return cursor.fetchall()
 
 
 def all_user_article(user):
@@ -86,13 +68,6 @@ def get_user_type_id(user_type):
 
 def admin_or_writer_type_ids():
     return [get_user_type_id('admin'), get_user_type_id('escritor')]
-
-
-def get_category_id(category):
-    with connection.cursor() as cursor:
-        query = f"SELECT idCategoria FROM categoria WHERE nombre_categoria = '{category}'"
-        cursor.execute(query)
-        return cursor.fetchone()[0]
 
 
 def identify_user(username, password):
@@ -129,8 +104,6 @@ def insert_article(article_title, article_content, user, categories=[]):
     return article_id
 
 
-
-
 def update_article_query(article_id, article_title, article_content, categories=[]):
     with connection.cursor() as cursor:
         query = f"""UPDATE articulo SET titulo = '{article_title}', contenido = '{article_content}' WHERE idArticulo = {article_id}"""
@@ -163,6 +136,7 @@ def get_article(article_id):
         cursor.execute(query)
         return cursor.fetchone()
 
+
 def get_article_categories(article_id):
         with connection.cursor() as cursor:
             query = f"""SELECT cat.nombre_categoria FROM articulo_x_categoria as axc
@@ -170,19 +144,13 @@ def get_article_categories(article_id):
                         WHERE axc.articulo_idArticulo =  {article_id}"""
             cursor.execute(query)
         return cursor.fetchall()
+        
 
 def comentarios_articulo(article_id):
     with connection.cursor() as cursor:
         sql = f"SELECT idComentario, contenido_comentario, fecha_comentario, articulo_idArticulo, nombre FROM comentario INNER JOIN usuario ON usuario.idUsuario = comentario.id_usuario WHERE articulo_idArticulo={article_id} ORDER BY fecha_comentario DESC"
         cursor.execute(sql)
         return cursor.fetchall()
-
-
-def get_user(user_id):
-    with connection.cursor() as cursor:
-        query = f""" SELECT * FROM usuario WHERE idUsuario = {user_id} """
-        cursor.execute(query)
-        return cursor.fetchone()
 
 
 def all_articulos_categorias(categorias):
