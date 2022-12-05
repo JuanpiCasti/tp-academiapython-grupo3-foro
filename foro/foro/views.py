@@ -113,7 +113,7 @@ def subir_comentario(request):
         msg = "El comentario debe tener contenido."
         return error(request, msg)
 
-    insert_comment(comment_content, article_id)
+    insert_comment(comment_content, article_id, user[0])
 
     return redirect(f'/mostrararticulo/{article_id}')
 

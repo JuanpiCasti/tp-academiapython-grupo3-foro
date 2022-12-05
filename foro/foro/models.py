@@ -198,10 +198,10 @@ def all_articulos_categorias(categorias):
         return sorted(articulos, key=lambda art: (art[4].strftime("%j")), reverse=True)
 
 
-def insert_comment(comment_content, article_id):
+def insert_comment(comment_content, article_id, user_id):
     with connection.cursor() as cursor:
-        query = f"""INSERT INTO comentario(contenido_comentario, fecha_comentario, articulo_idArticulo)
-				VALUES ('{comment_content}', '{today_date()}', {article_id})"""
+        query = f"""INSERT INTO comentario(contenido_comentario, fecha_comentario, articulo_idArticulo, id_usuario)
+				VALUES ('{comment_content}', '{today_date()}', {article_id}, {user_id})"""
         cursor.execute(query)
         connection.commit()
 
