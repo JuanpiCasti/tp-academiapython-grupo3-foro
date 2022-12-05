@@ -22,10 +22,7 @@ def home(request):
 
 
 def articulos_usuario(request, usuario):
-    try:
-        articulos = all_user_article(usuario)
-    except:
-        return render(request, "error.html", context={"error": "El usuario buscado no existe."})
+    articulos = all_user_article(usuario)
     return render(request, "home.html", context={"articulos": articulos})
 
 
