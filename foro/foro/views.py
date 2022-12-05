@@ -128,8 +128,7 @@ def convertRol(request):
         case "comentador":
             return 3
         case _:
-            msg = "Hubo un problema con el rol seleccionado"
-            return error(request, msg)
+            return 0
 
 
 def register(request):
@@ -141,10 +140,15 @@ def registerUser(request):
     password_one = request.POST["password1"]
     password_two = request.POST["password2"]
 
-    if reconocer_persona() == 1:
-        return error(request, msg="Pasaron 10s y no se reconocio a ninguna persona")
+    
     rol = convertRol(request)
+    if not username:
+        msg = "Por favor escriba un nombre."
+        return error(request, msg)
 
+    if not rol:
+        msg = "Por favor seleccione un rol."
+        return error(request, msg)
     if password_one != password_two:
         msg = "Las contraseñas son distintas, por favor vuelva a escribirlas."
         return error(request, msg)
@@ -157,7 +161,8 @@ def registerUser(request):
     else:
         saveUser(username, password_one, rol)
         return success(request, "Te has registrado exitosamente.")
-
+    if reconocer_persona() == 1:
+        return error(request, msg="Pasaron 10s y no se reconocio a ninguna persona")
 
 def edit_article(request, article_id):
     article = get_article(article_id)
