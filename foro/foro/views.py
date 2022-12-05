@@ -157,10 +157,9 @@ def registerUser(request):
 
 def edit_article(request, article_id):
     article = get_article(article_id)
-    user_name = get_user(article[4])[1]
     categorias = all_categorias()
 
-    return render(request, 'formulario_editar_articulo.html', context={'articulo': article, 'nombre_usuario': user_name, 'categorias': categorias})
+    return render(request, 'formulario_editar_articulo.html', context={'articulo': article, 'categorias': categorias})
 
 
 @csrf_exempt
@@ -215,7 +214,7 @@ def confirm_article_delete(request):
     user = identify_user(username, password)
 
     article = get_article(article_id)
-    author_id = article[4]
+    author_id = article[5]
 
     if not user:
         msg = "No se encontro un usuario con esa combinación de credenciales."

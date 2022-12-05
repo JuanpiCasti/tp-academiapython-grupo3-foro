@@ -153,8 +153,8 @@ def delete_all_categories_from_article(article_id):
 
 def get_article(article_id):
     with connection.cursor() as cursor:
-        query = f""" SELECT nombre, idArticulo, titulo, contenido, fecha_articulo FROM usuario
-					INNER JOIN articulo as art ON art.usuario_idUsuario = usuario.idUsuario
+        query = f""" SELECT nombre, idArticulo, titulo, contenido, fecha_articulo, usuario_idUsuario FROM articulo
+					INNER JOIN usuario as u ON articulo.usuario_idUsuario = u.idUsuario
 					WHERE idArticulo = {article_id} """
         cursor.execute(query)
         return cursor.fetchone()

@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<h1 class="title is-1">Escribir artículo</h1>
+<h1 class="title is-1">Editar artículo</h1>
 
 
 <form action="/actualizararticulo/" method="post" class="box">
-    <input name="article_id" value="{{articulo.0}}" type="hidden">
+    <input name="article_id" value="{{articulo.1}}" type="hidden">
     <div class="field">
         <label class="label">Nombre de usuario</label>
         <div class="control">
