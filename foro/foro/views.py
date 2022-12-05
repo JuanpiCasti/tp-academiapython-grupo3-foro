@@ -175,7 +175,7 @@ def update_article(request):
     user = identify_user(username, password)
 
     article = get_article(article_id)
-    author_id = article[4]
+    author_id = article[5]
 
     if not user:
         msg = "No se encontro un usuario con esa combinación de credenciales."
