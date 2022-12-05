@@ -1,43 +1,43 @@
-#Proyecto Final Capacitacion Capgemini
+# Proyecto Final Capacitacion Capgemini
 
 
-Grupo 3: 
+## Grupo 3: 
 Integrantes: Agustina Mercedes Garro, Facundo Nahuel Dalsasso, Juan Pablo Castiglione, Ezequiel Arroyo, Juan Cruz Rey Alvarez.
 
 
 
 
-#Temas y Herramientas Involucrados : 
+# Temas y Herramientas Involucrados : 
 
 
-###Lenguaje:
+### Lenguaje:
 	*Python
 
-###Web Framework:
-	*Django
+###W eb Framework:
+	* Django
 
-###B.D. Relacional:
-	*SQL
- 	*Package pymysql
+### B.D. Relacional:
+	* SQL
+ 	* Package pymysql
 
-###Arquitectura:
-	*Modelo Vista Template (MVT)
-	*Servidor Liviano 
-	*Template Engine: Jinja
+### Arquitectura:
+	* Modelo Vista Template (MVT)
+	* Servidor Liviano 
+	* Template Engine: Jinja
 
-###Vistas: 
-	*HTML
-	*CSS
-	*JavaScript
+### Vistas: 
+	* HTML
+	* CSS
+	* JavaScript
 
-###Python Dates:
-	*DateTime
+### Python Dates:
+	* DateTime
 
-###Computer Vision:
-	*Open cv
+### Computer Vision:
+	* Open cv
 
-###Intercambio De Datos:
-	*Json
+### Intercambio De Datos:
+	* Json
 	
 
 
@@ -46,7 +46,7 @@ Integrantes: Agustina Mercedes Garro, Facundo Nahuel Dalsasso, Juan Pablo Castig
 
 
 
-Nuestro Proyecto: 
+## Nuestro Proyecto: 
 
 El proyecto elegido fue el desarrollo de un foro donde las personas pueden registrarse mediante distintos roles tales como escritores o comentadores,  una vez registrados los primeros tienen la posibilidad de escribir distintos artículos distinguiendolos por categorías, asignándoles un título y su respectivo desarrollo. En cambio los comentadores complementan a los escritores leyendo sus artículos y realizando comentarios del mismo.
 Desde ya una persona puede ser escritor y comentarista a la vez pero deberá iniciar sesión con su cuenta correspondiente.
