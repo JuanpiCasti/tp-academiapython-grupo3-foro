@@ -80,8 +80,10 @@ def redirect_home(request):
 def articulo(request, article_id):
     art = get_article(article_id)
     comentarios = comentarios_articulo(article_id)
-    return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios})
-
+    if art:
+        return render(request, "articulo.html", context={"articulo": art, "comentarios": comentarios})
+    else:
+        return error(request, "Ese articulo no existe.")
 
 def articulos_categorias(request):
     context = {'categorias': all_categorias()}
